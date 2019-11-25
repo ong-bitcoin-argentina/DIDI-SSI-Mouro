@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="83" failures="0" time="6.26">
+  <testsuite name="SqliteMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:40" time="2.53" tests="18">
+    <testcase classname="SqliteMgr empty constructor" name="SqliteMgr empty constructor" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr date fix" name="SqliteMgr date fix" time="0">
+    </testcase>
+    <testcase classname="SqliteMgr init fail" name="SqliteMgr init fail" time="0.003">
+    </testcase>
+    <testcase classname="SqliteMgr init ok" name="SqliteMgr init ok" time="0">
+    </testcase>
+    <testcase classname="SqliteMgr addEdge() fail" name="SqliteMgr addEdge() fail" time="0.001">
+    </testcase>
+    <testcase classname="SqliteMgr addEdge() ok" name="SqliteMgr addEdge() ok" time="0">
+    </testcase>
+    <testcase classname="SqliteMgr getEdge() fail" name="SqliteMgr getEdge() fail" time="0.005">
+    </testcase>
+    <testcase classname="SqliteMgr getEdge() ok (no data)" name="SqliteMgr getEdge() ok (no data)" time="0.005">
+    </testcase>
+    <testcase classname="SqliteMgr getEdge() ok (no authz)" name="SqliteMgr getEdge() ok (no authz)" time="0.003">
+    </testcase>
+    <testcase classname="SqliteMgr getEdge() ok (bad authz)" name="SqliteMgr getEdge() ok (bad authz)" time="0.001">
+    </testcase>
+    <testcase classname="SqliteMgr getEdge() ok (authz)" name="SqliteMgr getEdge() ok (authz)" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() fail" name="SqliteMgr findEdge() fail" time="0.003">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (null authData)" name="SqliteMgr findEdge() ok (null authData)" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (no data)" name="SqliteMgr findEdge() ok (no data)" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (empty)" name="SqliteMgr findEdge() ok (empty)" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (fromDID)" name="SqliteMgr findEdge() ok (fromDID)" time="0.003">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (toDID)" name="SqliteMgr findEdge() ok (toDID)" time="0.002">
+    </testcase>
+    <testcase classname="SqliteMgr findEdge() ok (type,since and tag)" name="SqliteMgr findEdge() ok (type,since and tag)" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="PgMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:43" time="0.366" tests="15">
+    <testcase classname="PgMgr empty constructor" name="PgMgr empty constructor" time="0">
+    </testcase>
+    <testcase classname="PgMgr init fail" name="PgMgr init fail" time="0.003">
+    </testcase>
+    <testcase classname="PgMgr init ok" name="PgMgr init ok" time="0.001">
+    </testcase>
+    <testcase classname="PgMgr addEdge() fail" name="PgMgr addEdge() fail" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr addEdge() ok" name="PgMgr addEdge() ok" time="0">
+    </testcase>
+    <testcase classname="PgMgr getEdge() fail" name="PgMgr getEdge() fail" time="0.004">
+    </testcase>
+    <testcase classname="PgMgr getEdge() ok (no authz)" name="PgMgr getEdge() ok (no authz)" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr getEdge() ok (bad authz)" name="PgMgr getEdge() ok (bad authz)" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr getEdge() ok (authz)" name="PgMgr getEdge() ok (authz)" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr findEdge() fail" name="PgMgr findEdge() fail" time="0.003">
+    </testcase>
+    <testcase classname="PgMgr findEdge() ok (null authData)" name="PgMgr findEdge() ok (null authData)" time="0.001">
+    </testcase>
+    <testcase classname="PgMgr findEdge() ok (empty)" name="PgMgr findEdge() ok (empty)" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr findEdge() ok (fromDID)" name="PgMgr findEdge() ok (fromDID)" time="0.002">
+    </testcase>
+    <testcase classname="PgMgr findEdge() ok (toDID)" name="PgMgr findEdge() ok (toDID)" time="0.001">
+    </testcase>
+    <testcase classname="PgMgr findEdge() ok (type,since and tag)" name="PgMgr findEdge() ok (type,since and tag)" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="AuthMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:43" time="0.767" tests="17">
+    <testcase classname="AuthMgr empty constructor" name="AuthMgr empty constructor" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr verify() no token" name="AuthMgr verify() no token" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr verify() invalid token" name="AuthMgr verify() invalid token" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr verify() valid token" name="AuthMgr verify() valid token" time="0">
+    </testcase>
+    <testcase classname="AuthMgr verifyAuthorizationHeader() bad authorization format (single part)" name="AuthMgr verifyAuthorizationHeader() bad authorization format (single part)" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr verifyAuthorizationHeader() bad authorization format (no Bearer)" name="AuthMgr verifyAuthorizationHeader() bad authorization format (no Bearer)" time="0">
+    </testcase>
+    <testcase classname="AuthMgr verifyAuthorizationHeader() bad authorization token" name="AuthMgr verifyAuthorizationHeader() bad authorization token" time="0">
+    </testcase>
+    <testcase classname="AuthMgr verifyAuthorizationHeader() no authorization token" name="AuthMgr verifyAuthorizationHeader() no authorization token" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() invalid token" name="AuthMgr getAuthData() invalid token" time="0">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() null token" name="AuthMgr getAuthData() null token" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (no claim)" name="AuthMgr getAuthData() valid token (no claim)" time="0">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (no access)" name="AuthMgr getAuthData() valid token (no access)" time="0">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (empty access)" name="AuthMgr getAuthData() valid token (empty access)" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (bad access)" name="AuthMgr getAuthData() valid token (bad access)" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (access: mismatch sub)" name="AuthMgr getAuthData() valid token (access: mismatch sub)" time="0">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (access: read.from)" name="AuthMgr getAuthData() valid token (access: read.from)" time="0.001">
+    </testcase>
+    <testcase classname="AuthMgr getAuthData() valid token (access: delete.from)" name="AuthMgr getAuthData() valid token (access: delete.from)" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="QueryResolverMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:44" time="0.597" tests="11">
+    <testcase classname="QueryResolverMgr empty constructor" name="QueryResolverMgr empty constructor" time="0.001">
+    </testcase>
+    <testcase classname="QueryResolverMgr me() authMgr.verifyAuthorizarionHeader fail" name="QueryResolverMgr me() authMgr.verifyAuthorizarionHeader fail" time="0.001">
+    </testcase>
+    <testcase classname="QueryResolverMgr me() null token" name="QueryResolverMgr me() null token" time="0">
+    </testcase>
+    <testcase classname="QueryResolverMgr me() valid token" name="QueryResolverMgr me() valid token" time="0.001">
+    </testcase>
+    <testcase classname="QueryResolverMgr edgeByHash() authMgr.getAuthData fail" name="QueryResolverMgr edgeByHash() authMgr.getAuthData fail" time="0">
+    </testcase>
+    <testcase classname="QueryResolverMgr edgeByHash() storageMgr.getEdge fail" name="QueryResolverMgr edgeByHash() storageMgr.getEdge fail" time="0.001">
+    </testcase>
+    <testcase classname="QueryResolverMgr edgeByHash() storageMgr.getEdge returns null" name="QueryResolverMgr edgeByHash() storageMgr.getEdge returns null" time="0">
+    </testcase>
+    <testcase classname="QueryResolverMgr edgeByHash() valid hash" name="QueryResolverMgr edgeByHash() valid hash" time="0.001">
+    </testcase>
+    <testcase classname="QueryResolverMgr findEdges() authMgr.getAuthData fail" name="QueryResolverMgr findEdges() authMgr.getAuthData fail" time="0">
+    </testcase>
+    <testcase classname="QueryResolverMgr findEdges() storageMgr.findEdges fail" name="QueryResolverMgr findEdges() storageMgr.findEdges fail" time="0">
+    </testcase>
+    <testcase classname="QueryResolverMgr findEdges() happy path" name="QueryResolverMgr findEdges() happy path" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="SchemaMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:45" time="0.595" tests="6">
+    <testcase classname="SchemaMgr empty constructor" name="SchemaMgr empty constructor" time="0">
+    </testcase>
+    <testcase classname="SchemaMgr getResolver Query.me" name="SchemaMgr getResolver Query.me" time="0.002">
+    </testcase>
+    <testcase classname="SchemaMgr getResolver Query.edgeByHash" name="SchemaMgr getResolver Query.edgeByHash" time="0">
+    </testcase>
+    <testcase classname="SchemaMgr getResolver Query.findEdges" name="SchemaMgr getResolver Query.findEdges" time="0.001">
+    </testcase>
+    <testcase classname="SchemaMgr getResolver Mutation.addEdge" name="SchemaMgr getResolver Mutation.addEdge" time="0">
+    </testcase>
+    <testcase classname="SchemaMgr getSchema" name="SchemaMgr getSchema" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="EdgeResolverMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:45" time="0.353" tests="7">
+    <testcase classname="EdgeResolverMgr empty constructor" name="EdgeResolverMgr empty constructor" time="0.001">
+    </testcase>
+    <testcase classname="EdgeResolverMgr addEdge() empty jwt" name="EdgeResolverMgr addEdge() empty jwt" time="0.008">
+    </testcase>
+    <testcase classname="EdgeResolverMgr addEdge() valid token" name="EdgeResolverMgr addEdge() valid token" time="0.003">
+    </testcase>
+    <testcase classname="EdgeResolverMgr visToVisibility() To" name="EdgeResolverMgr visToVisibility() To" time="0.001">
+    </testcase>
+    <testcase classname="EdgeResolverMgr visToVisibility() Both" name="EdgeResolverMgr visToVisibility() Both" time="0">
+    </testcase>
+    <testcase classname="EdgeResolverMgr visToVisibility() Any" name="EdgeResolverMgr visToVisibility() Any" time="0">
+    </testcase>
+    <testcase classname="EdgeResolverMgr visToVisibility() Other" name="EdgeResolverMgr visToVisibility() Other" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="StorageMgr" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:45" time="0.083" tests="6">
+    <testcase classname="StorageMgr empty constructor" name="StorageMgr empty constructor" time="0">
+    </testcase>
+    <testcase classname="StorageMgr no underlying storage" name="StorageMgr no underlying storage" time="0">
+    </testcase>
+    <testcase classname="StorageMgr SQLite storage" name="StorageMgr SQLite storage" time="0.009">
+    </testcase>
+    <testcase classname="StorageMgr addEdge() happy path" name="StorageMgr addEdge() happy path" time="0.001">
+    </testcase>
+    <testcase classname="StorageMgr getEdge() happy path" name="StorageMgr getEdge() happy path" time="0">
+    </testcase>
+    <testcase classname="StorageMgr findEdges() happy path" name="StorageMgr findEdges() happy path" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="GraphQLHandler" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:46" time="0.479" tests="2">
+    <testcase classname="GraphQLHandler empty constructor" name="GraphQLHandler empty constructor" time="0.001">
+    </testcase>
+    <testcase classname="GraphQLHandler formatError" name="GraphQLHandler formatError" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="apiHandler" errors="0" failures="0" skipped="0" timestamp="2019-11-04T12:09:46" time="0.2" tests="1">
+    <testcase classname="apiHandler graphql()" name="apiHandler graphql()" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>

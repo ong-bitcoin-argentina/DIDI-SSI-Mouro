@@ -1,0 +1,8 @@
+graphql:
+    handler: src/api_handler.graphql
+    timeout: 30 #Max (ApiGateway limitation)
+    events:
+    - http:
+        path: /graphql
+        method: post
+        cors: true

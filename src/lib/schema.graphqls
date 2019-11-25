@@ -1,0 +1,55 @@
+type Query {
+    # Return identity for the API token issuer
+    me: Identity 
+
+    # Return an edge by hash
+    edgeByHash(hash: ID!): Edge
+
+    # Find edges
+    # returns an array of Edges
+    findEdges(fromDID:[String], toDID:[String], type:[String], since:Int, tag:[String]): [Edge!]!
+}
+
+#Identity type.
+type Identity {
+    # Decentralized Identifier (DID) of the Identity
+    did: String!
+}
+
+type Edge {
+    # blake2b hash of the JWT
+    hash: ID!
+    # original JWT of the edge
+    jwt: String!
+    # from field of the edge. "iss" on the JWT
+    from: Identity!
+    # to field of the edge. "sub" on the JWT
+    to: Identity!
+    # type of the edge. "type" on the JWT
+    type: String
+    # date of the issuance of the edge. "iat" on the JWT
+    time: Int!
+    # tag of the edge. "tag" on the JWT
+    tag: String
+    # visibility of the edge. "vis" on the JWT
+    visibility: VisibilityEnum
+    # retention period (in seconds) of the edge. "ret" on the JWT
+    retention: Int
+    # Data of the edge, can be unencrypted or encrypted. "data" on the JWT
+    data: String
+}
+
+enum VisibilityEnum {
+  TO
+  BOTH
+  ANY
+}
+
+type Mutation {
+    # Add and edge.
+    #
+    # Arguments
+    #
+    # edgeJWT: JWT with the following mandatory fields: iss, sub, type, iat. Optional: tag,claim,encPriv,encShar
+    addEdge(edgeJWT: String): Edge
+}

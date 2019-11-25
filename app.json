@@ -1,0 +1,15 @@
+{
+    "name": "mouro",
+    "description": "uPort Trust Graph Server",
+    "logo": "https://avatars1.githubusercontent.com/u/24941981",
+    "keywords": ["uPort","ssi","identity"],
+    "addons": ["heroku-postgresql:hobby-dev"],
+    "env": {
+      "PG_URL": {
+            "description": "PostgreSQL endpoint url",
+            "value": ""
+      }
+    
+    }
+  }
+  

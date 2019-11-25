@@ -1,0 +1,124 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html, body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+	color: #333;
+}
+body {
+	padding: 1rem;
+	font-size: 0.85rem;
+}
+header {
+	display: flex;
+	align-items: center;
+}
+#title {
+	margin: 0;
+	flex-grow: 1;
+}
+#logo {
+	height: 4rem;
+}
+#timestamp {
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 0.5rem;
+}
+#summary {
+	color: #999;
+	margin-bottom: 1rem;
+}
+.suite-info {
+	padding: 1rem;
+	background-color: #eee;
+	border-bottom: 2px solid #999;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.suite-info .suite-path {
+	font-weight: bold;
+	word-break: break-all;
+	flex-grow: 1;
+}
+.suite-info .suite-time {
+	margin-left: 0.5rem;
+	padding: 0.2rem 0.3rem;
+	font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+	background-color: #D8000C;
+	color: #fff;
+}
+.suite-table {
+	width: 100%;
+	font-size: 0.85rem;
+	margin-bottom: 1em;
+}
+.suite-table td {
+	padding: 0.5rem;
+}
+.suite-table tr.passed {
+	background-color: #DFF2BF;
+	color: #4F8A10;
+}
+.suite-table tr.pending {
+	background-color: #FEEFB3;
+	color: #9F6000;
+}
+.suite-table tr.failed {
+	background-color: #FFBABA;
+	color: #D8000C;
+}
+.suite-table td {
+	font-size: 0.85rem;
+	border-bottom: 1px solid #aaa;
+	vertical-align: top;
+}
+.suite-table td.suite {
+	font-weight: bold;
+	width: 20%;
+}
+.suite-table td.test {
+	font-style: italic;
+	width: 60%;
+}
+.suite-table td.test .failureMsg {
+	font-size: 1rem;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+.suite-table td.result {
+	width: 20%;
+	text-align: right;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background-color: #efefef;
+}
+.suite-consolelog-header {
+	font-weight: bold;
+}
+.suite-consolelog-item {
+	padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+	margin: 0;
+}
+.suite-consolelog-item-origin {
+	color: #777;
+	font-weight: bold;
+}
+.suite-consolelog-item-message {
+	color: #000;
+	font-size: 1rem;
+	padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1></header><div id="metadata-container"><div id="timestamp">Start: 2019-11-04 09:09:40</div><div id="summary">83 tests -- 83 passed / 0 failed / 0 pending</div></div><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/sqliteMgr.test.ts</div><div class="suite-time">2.53s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">SqliteMgr</td><td class="test">empty constructor</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr</td><td class="test">date fix</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; init</td><td class="test">fail</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; init</td><td class="test">ok</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; addEdge()</td><td class="test">fail</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; addEdge()</td><td class="test">ok</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; getEdge()</td><td class="test">fail</td><td class="result">passed in 0.005s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; getEdge()</td><td class="test">ok (no data)</td><td class="result">passed in 0.005s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; getEdge()</td><td class="test">ok (no authz)</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; getEdge()</td><td class="test">ok (bad authz)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; getEdge()</td><td class="test">ok (authz)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">fail</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (null authData)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (no data)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (empty)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (fromDID)</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (toDID)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SqliteMgr &gt; findEdge()</td><td class="test">ok (type,since and tag)</td><td class="result">passed in 0.003s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/pgMgr.test.ts</div><div class="suite-time">0.366s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">PgMgr</td><td class="test">empty constructor</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; init</td><td class="test">fail</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; init</td><td class="test">ok</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; addEdge()</td><td class="test">fail</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; addEdge()</td><td class="test">ok</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; getEdge()</td><td class="test">fail</td><td class="result">passed in 0.004s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; getEdge()</td><td class="test">ok (no authz)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; getEdge()</td><td class="test">ok (bad authz)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; getEdge()</td><td class="test">ok (authz)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">fail</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">ok (null authData)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">ok (empty)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">ok (fromDID)</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">ok (toDID)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">PgMgr &gt; findEdge()</td><td class="test">ok (type,since and tag)</td><td class="result">passed in 0.002s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/authMgr.test.ts</div><div class="suite-time">0.767s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">AuthMgr</td><td class="test">empty constructor</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verify()</td><td class="test">no token</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verify()</td><td class="test">invalid token</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verify()</td><td class="test">valid token</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verifyAuthorizationHeader()</td><td class="test">bad authorization format (single part)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verifyAuthorizationHeader()</td><td class="test">bad authorization format (no Bearer)</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verifyAuthorizationHeader()</td><td class="test">bad authorization token</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; verifyAuthorizationHeader()</td><td class="test">no authorization token</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">invalid token</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">null token</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (no claim)</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (no access)</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (empty access)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (bad access)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (access: mismatch sub)</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (access: read.from)</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">AuthMgr &gt; getAuthData()</td><td class="test">valid token (access: delete.from)</td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/queryResolverMgr.test.ts</div><div class="suite-time">0.597s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">QueryResolverMgr</td><td class="test">empty constructor</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; me()</td><td class="test">authMgr.verifyAuthorizarionHeader fail</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; me()</td><td class="test">null token</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; me()</td><td class="test">valid token</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; edgeByHash()</td><td class="test">authMgr.getAuthData fail</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; edgeByHash()</td><td class="test">storageMgr.getEdge fail</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; edgeByHash()</td><td class="test">storageMgr.getEdge returns null</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; edgeByHash()</td><td class="test">valid hash</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; findEdges()</td><td class="test">authMgr.getAuthData fail</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; findEdges()</td><td class="test">storageMgr.findEdges fail</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">QueryResolverMgr &gt; findEdges()</td><td class="test">happy path</td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/schemaMgr.test.ts</div><div class="suite-time">0.595s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">SchemaMgr</td><td class="test">empty constructor</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SchemaMgr &gt; getResolver</td><td class="test">Query.me</td><td class="result">passed in 0.002s</td></tr><tr class="passed"><td class="suite">SchemaMgr &gt; getResolver</td><td class="test">Query.edgeByHash</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SchemaMgr &gt; getResolver</td><td class="test">Query.findEdges</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">SchemaMgr &gt; getResolver</td><td class="test">Mutation.addEdge</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">SchemaMgr</td><td class="test">getSchema</td><td class="result">passed in 0.012s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/edgeResolverMgr.test.ts</div><div class="suite-time">0.353s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">EdgeResolverMgr</td><td class="test">empty constructor</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; addEdge()</td><td class="test">empty jwt</td><td class="result">passed in 0.008s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; addEdge()</td><td class="test">valid token</td><td class="result">passed in 0.003s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; visToVisibility()</td><td class="test">To</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; visToVisibility()</td><td class="test">Both</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; visToVisibility()</td><td class="test">Any</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">EdgeResolverMgr &gt; visToVisibility()</td><td class="test">Other</td><td class="result">passed in 0s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/lib/__tests__/storageMgr.test.ts</div><div class="suite-time">0.083s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">StorageMgr</td><td class="test">empty constructor</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">StorageMgr</td><td class="test">no underlying storage</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">StorageMgr</td><td class="test">SQLite storage</td><td class="result">passed in 0.009s</td></tr><tr class="passed"><td class="suite">StorageMgr &gt; addEdge()</td><td class="test">happy path</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">StorageMgr &gt; getEdge()</td><td class="test">happy path</td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">StorageMgr &gt; findEdges()</td><td class="test">happy path</td><td class="result">passed in 0s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/handlers/__tests__/graphql.test.ts</div><div class="suite-time">0.479s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">GraphQLHandler</td><td class="test">empty constructor</td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">GraphQLHandler</td><td class="test">formatError</td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">/Users/devcreative/Desktop/repo/gitlab/didi-repo/mouro/src/__tests__/api_handler.test.ts</div><div class="suite-time">0.2s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">apiHandler</td><td class="test">graphql()</td><td class="result">passed in 0.002s</td></tr></table></div></body></html>

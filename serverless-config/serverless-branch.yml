@@ -1,0 +1,25 @@
+service: mouro
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-domain-manager
+  - serverless-plugin-aws-alerts
+
+provider:
+   name: aws
+   runtime: nodejs8.10
+   region: us-west-2
+   environment:
+      PG_URL: ${ssm:/mouro/develop/PG_URL~true}
+
+custom: 
+  customDomain:
+    domainName: edge.uport.space
+    basePath: ${opt:stage}
+    createRoute53Record: false
+  prune:
+    automatic: true
+    number: 5
+  
+functions:
+  - ${file(serverless-config/functions.yml)}
