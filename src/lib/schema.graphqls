@@ -51,5 +51,6 @@ type Mutation {
     # Arguments
     #
     # edgeJWT: JWT with the following mandatory fields: iss, sub, type, iat. Optional: tag,claim,encPriv,encShar
+    removeEdge(edgeJWT: String): Edge
     addEdge(edgeJWT: String): Edge
 }

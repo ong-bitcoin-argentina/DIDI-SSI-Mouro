@@ -475,6 +475,22 @@ module.exports = class PgMgr implements StorageInterface{
     }
   }
 &nbsp;
+	async removeEdge(edge: PersistedEdgeType) {
+		//Store edge
+		const sql = `DELETE FROM edges WHERE jwt= $1`;
+
+		const client = this._getClient();
+		try {
+			await client.connect();
+			const res = await client.query(sql, [edge.jwt]);
+			return res;
+		} catch (e) {
+			throw e;
+		} finally {
+			await client.end();
+		}
+	}
+&nbsp;
   async addEdge(edge: PersistedEdgeType){
     //Store edge
     const sql=`

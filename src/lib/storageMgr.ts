@@ -2,6 +2,7 @@ import { AuthDataType } from "./authMgr";
 
 export interface StorageInterface {
     init(): Promise<void>;
+    removeEdge(edge: PersistedEdgeType): Promise<any>;
     addEdge(edge: PersistedEdgeType): Promise<any>;
     getEdge(hash: string, authData: AuthDataType | null): Promise<any>;
     findEdges(params: any, authData: AuthDataType | null): Promise<any>;
@@ -38,6 +39,10 @@ export class StorageMgr {
             throw Error('no underlying storage')
         }
         
+    }
+
+    async removeEdge(edge: PersistedEdgeType){
+        return this.storage.removeEdge(edge);
     }
 
     async addEdge(edge: PersistedEdgeType){
