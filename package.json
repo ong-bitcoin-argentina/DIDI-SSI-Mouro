@@ -11,7 +11,6 @@
     "config::offline": "cp serverless-config/serverless-offline.yml ./serverless.yml",
     "config::branch": "cp serverless-config/serverless-branch.yml ./serverless.yml",
     "config::master": "cp serverless-config/serverless-master.yml ./serverless.yml",
-    "start-local": "PORT=3001 SQLITE_FILE=./mouro.sqlite node -r ts-node/register ./src/server.ts",
     "start": "node -r ts-node/register ./src/server.ts",
     "test::e2e": "node dev-scripts/create-newman-env http://localhost:3000 > env.json && newman run e2e-tests/mouro.postman_collection.json -e env.json",
     "local": "PORT=3001 SQLITE_FILE=./mouro.sqlite npm start"
