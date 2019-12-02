@@ -44,7 +44,7 @@ export class SchemaMgr {
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.edgeResolverMgr.removeEdge(args.edgeJWT);
+					const res = await this.edgeResolverMgr.removeEdge(args.hash);
 					return res;
 				}
 			},

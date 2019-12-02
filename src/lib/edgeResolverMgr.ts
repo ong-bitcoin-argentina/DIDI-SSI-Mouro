@@ -10,45 +10,15 @@ export class EdgeResolverMgr {
 		this.storageMgr = storageMgr;
 	}
 
-	async removeEdge(edgeJWT: string) {
-		console.log("edgeJWT:" + edgeJWT);
-
-		//blake2b hash of the original message
-		const hash = blake.blake2bHex(edgeJWT);
+	async removeEdge(hash: string) {
 		console.log("hash:" + hash);
 
-		//Verify that the body is a proper JWT
-		//This can take up to 3 secc
-		console.log("verifyJWT...");
-		const verifiedJWT = await didJWT.verifyJWT(edgeJWT);
-		console.log(verifiedJWT);
-
-		const pl = verifiedJWT.payload;
-
-		const edgeObject: PersistedEdgeType = {
-			hash: hash,
-			jwt: edgeJWT,
-			from: pl.iss,
-			to: pl.sub,
-			type: pl.type,
-			time: pl.iat,
-			visibility: this.visToVisibility(pl.vis),
-			retention: pl.ret,
-			tag: pl.tag,
-			data: pl.data
-		};
-		console.log("edge decoded");
-		console.log(edgeObject);
-
 		//Persist edge
-		await this.storageMgr.removeEdge(edgeObject);
+		await this.storageMgr.removeEdge(hash);
 		console.log("edge removed");
 
 		//Return
-		let ret: any = edgeObject;
-		ret.from = { did: ret.from };
-		ret.to = { did: ret.to };
-		return ret;
+		return hash;
 	}
 
 	async addEdge(edgeJWT: string) {

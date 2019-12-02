@@ -146,14 +146,14 @@ module.exports = class PgMgr implements StorageInterface {
 		}
 	}
 
-	async removeEdge(edge: PersistedEdgeType) {
+	async removeEdge(hash: string) {
 		//Remove edge
-		const sql = `DELETE FROM edges WHERE jwt= $1`;
+		const sql = `DELETE FROM edges WHERE hash= $1`;
 
 		const client = this._getClient();
 		try {
 			await client.connect();
-			const res = await client.query(sql, [edge.jwt]);
+			const res = await client.query(sql, [hash]);
 			return res;
 		} catch (e) {
 			throw e;

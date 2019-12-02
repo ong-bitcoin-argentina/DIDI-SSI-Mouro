@@ -42,17 +42,15 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		}
 	}
 
-	async removeEdge(edge: PersistedEdgeType) {
+	async removeEdge(hash: string) {
 		//Remove edge
-		const sql = `DELETE FROM edges WHERE jwt= $1`;
+		const sql = `DELETE FROM edges WHERE hash= $1`;
 		const db = await this._getDatabase();
 		try {
-			const res = await db.run(sql, [
-				edge.jwt
-			]);
+			const res = await db.run(sql, [hash]);
 			return res;
 		} catch (e) {
-      console.log(e);
+			console.log(e);
 			throw e;
 		}
 	}
