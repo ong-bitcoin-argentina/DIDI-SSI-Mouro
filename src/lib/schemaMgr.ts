@@ -32,6 +32,11 @@ export class SchemaMgr {
 					const res = await this.queryResolverMgr.edgeByHash(context.headers, args.hash);
 					return res;
 				},
+				//Find edges by jwt
+				edgeByJwt: async (parent: any, args: any, context: any, info: any) => {
+					const res = await this.queryResolverMgr.edgeByJwt(context.headers, args.edgeJWT);
+					return res;
+				},
 				//Find edges
 				findEdges: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.findEdges(context.headers, args);

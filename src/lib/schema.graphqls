@@ -2,6 +2,9 @@ type Query {
 	# Return identity for the API token issuer
 	me: Identity
 
+	# Return an edge by jwt
+	edgeByJwt(edgeJWT: String): Edge
+
 	# Return an edge by hash
 	edgeByHash(hash: ID!): Edge
 

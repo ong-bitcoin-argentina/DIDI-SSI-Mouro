@@ -88,12 +88,17 @@ module.exports = class PgMgr implements StorageInterface {
 		}
 	}
 
+	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
+		let whereClause = sql.eq("jwt", jwt);
+		this.doGetEdge(whereClause);
+	}
+
 	async getEdge(hash: string, authData: AuthDataType | null) {
 		let whereClause = sql.eq("hash", hash);
+		this.doGetEdge(whereClause);
+	}
 
-		//Add perms to whereClause
-		whereClause = sql.and(whereClause, this._getPermsReadWhere(authData));
-
+	async doGetEdge(whereClause: any) {
 		const q = sql
 			.select()
 			.from("edges")

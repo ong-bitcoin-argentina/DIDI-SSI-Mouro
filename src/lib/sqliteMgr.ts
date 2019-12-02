@@ -95,12 +95,17 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		}
 	}
 
+	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
+		let whereClause = sql.eq("jwt", jwt);
+		return await this.doGetEdge(whereClause, authData);
+	}
+
 	async getEdge(hash: string, authData: AuthDataType | null) {
 		let whereClause = sql.eq("hash", hash);
+		return await this.doGetEdge(whereClause, authData);
+	}
 
-		//Add perms to whereClause
-		whereClause = sql.and(whereClause, this._getPermsReadWhere(authData));
-
+	async doGetEdge(whereClause: any, authData: AuthDataType | null) {
 		const q = sql
 			.select()
 			.from("edges")

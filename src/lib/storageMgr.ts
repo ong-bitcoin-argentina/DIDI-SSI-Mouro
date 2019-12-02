@@ -2,8 +2,9 @@ import { AuthDataType } from "./authMgr";
 
 export interface StorageInterface {
 	init(): Promise<void>;
-	removeEdge(hash: string): Promise<any>;
 	addEdge(edge: PersistedEdgeType): Promise<any>;
+	removeEdge(hash: string): Promise<any>;
+	edgeByJwt(jwt: string, authData: AuthDataType | null): Promise<any>;
 	getEdge(hash: string, authData: AuthDataType | null): Promise<any>;
 	findEdges(params: any, authData: AuthDataType | null): Promise<any>;
 }
@@ -45,6 +46,10 @@ export class StorageMgr {
 
 	async addEdge(edge: PersistedEdgeType) {
 		return this.storage.addEdge(edge);
+	}
+
+	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
+		return this.storage.edgeByJwt(jwt, authData);
 	}
 
 	async getEdge(hash: string, authData: AuthDataType | null) {
