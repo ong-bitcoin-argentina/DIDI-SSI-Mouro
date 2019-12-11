@@ -45,7 +45,7 @@ describe('EdgeResolverMgr', () => {
         test('empty jwt', (done)=> {
             didJWT.verifyJWT.mockImplementationOnce(()=>{throw Error('no JWT passed into decodeJWT')})
             
-            sut.addEdge('')
+            sut.addEdge('', '')
             .then(()=> {
                 fail("shouldn't return"); done()
             })
@@ -58,7 +58,7 @@ describe('EdgeResolverMgr', () => {
 
         test('valid token', (done)=> {
             didJWT.verifyJWT.mockResolvedValueOnce({payload: {iss: did, sub: sub}})
-            sut.addEdge(validToken)
+            sut.addEdge(validToken, "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp: any)=> {
                 expect(resp).not.toBeNull();
                 expect(resp.from.did).toEqual(did)

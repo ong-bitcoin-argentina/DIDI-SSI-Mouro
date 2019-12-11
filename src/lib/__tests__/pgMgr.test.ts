@@ -65,7 +65,7 @@ describe('PgMgr', () => {
                 visibility: 'ANY',
                 jwt: 'ey...'
             }
-            sut.addEdge(edge)
+            sut.addEdge(edge, "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 fail("shouldn't return")
             })
@@ -89,7 +89,7 @@ describe('PgMgr', () => {
                 visibility: 'ANY',
                 jwt: 'ey...'
             }
-            sut.addEdge(edge)
+            sut.addEdge(edge, "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 done()
@@ -100,7 +100,7 @@ describe('PgMgr', () => {
     describe("getEdge()", () => {
         test('fail', (done)=> {
             pgClientMock.query.mockImplementationOnce(()=>{throw Error('fail')});
-            sut.getEdge("someHash",{user: 'did:u'})
+            sut.getEdge("someHash",{user: 'did:u'},  "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then(()=> {
                 fail("shouldn't return")
             })
@@ -116,7 +116,7 @@ describe('PgMgr', () => {
         test('ok (no authz)', (done)=> {
             pgClientMock.query.mockReset()
             pgClientMock.query.mockImplementationOnce(()=>{return {rows:['OK']}});
-            sut.getEdge('someHash',{user: 'did:u'})
+            sut.getEdge('someHash',{user: 'did:u'},  "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 expect(pgClientMock.query).toBeCalledWith("SELECT * FROM edges WHERE hash = 'someHash' AND ((visibility = 'TO' AND \"to\" = 'did:u') OR (visibility = 'BOTH' AND (\"from\" = 'did:u' OR \"to\" = 'did:u')) OR visibility = 'ANY')")
@@ -127,7 +127,7 @@ describe('PgMgr', () => {
         test('ok (bad authz)', (done)=> {
             pgClientMock.query.mockReset()
             pgClientMock.query.mockImplementationOnce(()=>{return {rows:['OK']}});
-            sut.getEdge('someHash',{user: 'did:u', authzRead:[{iss: 'did:u2'}]})
+            sut.getEdge('someHash',{user: 'did:u', authzRead:[{iss: 'did:u2'}]},  "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 expect(pgClientMock.query).toBeCalledWith("SELECT * FROM edges WHERE hash = 'someHash' AND ((visibility = 'TO' AND \"to\" = 'did:u') OR (visibility = 'BOTH' AND (\"from\" = 'did:u' OR \"to\" = 'did:u')) OR visibility = 'ANY')")
@@ -138,7 +138,7 @@ describe('PgMgr', () => {
         test('ok (authz)', (done)=> {
             pgClientMock.query.mockReset()
             pgClientMock.query.mockImplementationOnce(()=>{return {rows:['OK']}});
-            sut.getEdge('someHash',{user: 'did:u', authzRead:[{iss: 'did:u2',from:'did:u'}]})
+            sut.getEdge('someHash',{user: 'did:u', authzRead:[{iss: 'did:u2',from:'did:u'}]},  "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 expect(pgClientMock.query).toBeCalledWith("SELECT * FROM edges WHERE hash = 'someHash' AND (((visibility = 'TO' AND \"to\" = 'did:u') OR (visibility = 'BOTH' AND (\"from\" = 'did:u' OR \"to\" = 'did:u')) OR visibility = 'ANY') OR (\"to\" = 'did:u2' AND \"from\" = 'did:u'))")
@@ -185,21 +185,10 @@ describe('PgMgr', () => {
                 done()
             })
         })
-
-        test('ok (fromDID)', (done)=> {
-            pgClientMock.query.mockReset()
-            pgClientMock.query.mockImplementationOnce(()=>{return {rows: ['OK']}});
-            sut.findEdges({fromDID:['did1','did2']},{user: 'did:u'})
-            .then((resp)=> {
-                expect(resp).toEqual(['OK'])
-                expect(pgClientMock.query).toBeCalledWith("SELECT * FROM edges WHERE \"from\" IN ('did1', 'did2') AND ((visibility = 'TO' AND \"to\" = 'did:u') OR (visibility = 'BOTH' AND (\"from\" = 'did:u' OR \"to\" = 'did:u')) OR visibility = 'ANY') ORDER BY time")
-                done()
-            })
-        })
         test('ok (toDID)', (done)=> {
             pgClientMock.query.mockReset()
             pgClientMock.query.mockImplementationOnce(()=>{return {rows: ['OK']}});
-            sut.findEdges({toDID:['did1','did2']},{user: 'did:u'})
+            sut.findEdges({toDID:'did1'},{user: 'did:u'})
             .then((resp)=> {
                 expect(resp).toEqual(['OK'])
                 expect(pgClientMock.query).toBeCalledWith("SELECT * FROM edges WHERE \"to\" IN ('did1', 'did2') AND ((visibility = 'TO' AND \"to\" = 'did:u') OR (visibility = 'BOTH' AND (\"from\" = 'did:u' OR \"to\" = 'did:u')) OR visibility = 'ANY') ORDER BY time")

@@ -51,7 +51,7 @@ sls deploy --stage master
 Using Sqlite
 
 ```
-PORT=3000 SQLITE_FILE=./mouro.sqlite npm start 
+PORT=3000 SQLITE_FILE=DID npm start 
 ```
 
 Using Postgresql

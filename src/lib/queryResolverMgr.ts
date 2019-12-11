@@ -20,10 +20,10 @@ export class QueryResolverMgr {
 		};
 	}
 
-	async edgeByJwt(headers: headersType, jwt: string) {
+	async edgeByJwt(headers: headersType, jwt: string, did: string) {
 		const authData = await this.authMgr.getAuthData(headers);
 
-		let edge = await this.storageMgr.edgeByJwt(jwt, authData);
+		let edge = await this.storageMgr.edgeByJwt(jwt, authData, did);
 		if (!edge) return null;
 
 		//Transformations
@@ -33,10 +33,10 @@ export class QueryResolverMgr {
 		return edge;
 	}
 
-	async edgeByHash(headers: headersType, hash: string) {
+	async edgeByHash(headers: headersType, hash: string, did: string) {
 		const authData = await this.authMgr.getAuthData(headers);
 
-		let edge = await this.storageMgr.getEdge(hash, authData);
+		let edge = await this.storageMgr.getEdge(hash, authData, did);
 		if (!edge) return null;
 
 		//Transformations

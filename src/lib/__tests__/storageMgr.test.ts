@@ -57,7 +57,7 @@ describe('StorageMgr', () => {
                 time: new Date().getTime() * 1000,
                 jwt: 'ey...'
             }
-            sut.addEdge(edge)
+            sut.addEdge(edge, "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 done()
@@ -67,7 +67,7 @@ describe('StorageMgr', () => {
 
     describe("getEdge()", () => {
         test('happy path', (done)=> {
-            sut.getEdge('hash', {user: 'did:to'})
+            sut.getEdge('hash', {user: 'did:to'},  "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toEqual('OK')
                 done()

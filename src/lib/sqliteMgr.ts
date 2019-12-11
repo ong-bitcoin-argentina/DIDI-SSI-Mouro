@@ -10,14 +10,23 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		console.log("SQLite Driver Started.");
 	}
 
-	async _getDatabase() {
-		if (!this.db) {
-			this.db = await sqlite.open(process.env.SQLITE_FILE);
+	async _getDatabase(path: string | undefined) {
+		if (process.env.SQLITE_FILE === "DID") {
+			if (path) {
+				this.db = await sqlite.open(path);
+				await this.initDb(this.db);
+			}
+		} else {
+			if (!this.db) {
+				this.db = await sqlite.open(process.env.SQLITE_FILE);
+				await this.initDb(this.db);
+			}
 		}
+
 		return this.db;
 	}
 
-	async init() {
+	async initDb(db: any) {
 		const sql = `
     CREATE TABLE IF NOT EXISTS edges
     (
@@ -33,7 +42,6 @@ module.exports = class SQLiteMgr implements StorageInterface {
       jwt TEXT NOT NULL
     )
     `;
-		const db = await this._getDatabase();
 		try {
 			const res = await db.run(sql);
 			return res;
@@ -42,10 +50,14 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		}
 	}
 
-	async removeEdge(hash: string) {
+	async init() {
+		await this._getDatabase(undefined);
+	}
+
+	async removeEdge(hash: string, did: string) {
 		//Remove edge
 		const sql = `DELETE FROM edges WHERE hash= $1`;
-		const db = await this._getDatabase();
+		const db = await this._getDatabase(did);
 		try {
 			const res = await db.run(sql, [hash]);
 			return res;
@@ -55,7 +67,7 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		}
 	}
 
-	async addEdge(edge: PersistedEdgeType) {
+	async addEdge(edge: PersistedEdgeType, did: string) {
 		//Store edge
 		const sql = `
     INSERT INTO edges
@@ -75,7 +87,7 @@ module.exports = class SQLiteMgr implements StorageInterface {
     ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
     ON CONFLICT(edges.hash) DO NOTHING;
     `;
-		const db = await this._getDatabase();
+		const db = await this._getDatabase(did);
 		try {
 			const res = await db.run(sql, [
 				edge.hash,
@@ -95,17 +107,17 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		}
 	}
 
-	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
+	async edgeByJwt(jwt: string, authData: AuthDataType | null, did: string) {
 		let whereClause = sql.eq("jwt", jwt);
-		return await this.doGetEdge(whereClause, authData);
+		return await this.doGetEdge(whereClause, authData, did);
 	}
 
-	async getEdge(hash: string, authData: AuthDataType | null) {
+	async getEdge(hash: string, authData: AuthDataType | null, did: string) {
 		let whereClause = sql.eq("hash", hash);
-		return await this.doGetEdge(whereClause, authData);
+		return await this.doGetEdge(whereClause, authData, did);
 	}
 
-	async doGetEdge(whereClause: any, authData: AuthDataType | null) {
+	async doGetEdge(whereClause: any, authData: AuthDataType | null, did: string) {
 		const q = sql
 			.select()
 			.from("edges")
@@ -113,7 +125,7 @@ module.exports = class SQLiteMgr implements StorageInterface {
 			.toString();
 		console.log(q);
 
-		const db = await this._getDatabase();
+		const db = await this._getDatabase(did);
 		try {
 			const res = await db.get(q);
 			return res;
@@ -127,8 +139,6 @@ module.exports = class SQLiteMgr implements StorageInterface {
 		let where = {};
 		console.log({ args });
 
-		if (args.fromDID) where = sql.and(where, sql.in("from", args.fromDID));
-		if (args.toDID) where = sql.and(where, sql.in("to", args.toDID));
 		if (args.type) where = sql.and(where, sql.in("type", args.type));
 		if (args.since) where = sql.and(where, sql.gt("time", args.since));
 		if (args.tag) where = sql.and(where, sql.in("tag", args.tag));
@@ -144,7 +154,7 @@ module.exports = class SQLiteMgr implements StorageInterface {
 			.toString();
 		console.log(q);
 
-		const db = await this._getDatabase();
+		const db = await this._getDatabase(args.toDID);
 		try {
 			let res = await db.all(q);
 			return res;

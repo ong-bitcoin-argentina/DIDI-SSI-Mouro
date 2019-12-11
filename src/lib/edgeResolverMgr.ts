@@ -10,18 +10,18 @@ export class EdgeResolverMgr {
 		this.storageMgr = storageMgr;
 	}
 
-	async removeEdge(hash: string) {
+	async removeEdge(hash: string, did: string) {
 		console.log("hash:" + hash);
 
 		//Persist edge
-		await this.storageMgr.removeEdge(hash);
+		await this.storageMgr.removeEdge(hash, did);
 		console.log("edge removed");
 
 		//Return
 		return hash;
 	}
 
-	async addEdge(edgeJWT: string) {
+	async addEdge(edgeJWT: string, did: string) {
 		console.log("edgeJWT:" + edgeJWT);
 
 		//blake2b hash of the original message
@@ -52,7 +52,7 @@ export class EdgeResolverMgr {
 		console.log(edgeObject);
 
 		//Persist edge
-		await this.storageMgr.addEdge(edgeObject);
+		await this.storageMgr.addEdge(edgeObject, did);
 
 		//Return
 		let ret: any = edgeObject;

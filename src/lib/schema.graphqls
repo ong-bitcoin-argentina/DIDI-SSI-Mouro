@@ -3,16 +3,15 @@ type Query {
 	me: Identity
 
 	# Return an edge by jwt
-	edgeByJwt(edgeJWT: String): Edge
+	edgeByJwt(edgeJWT: String, did: String): Edge
 
 	# Return an edge by hash
-	edgeByHash(hash: ID!): Edge
+	edgeByHash(hash: ID!, did: String): Edge
 
 	# Find edges
 	# returns an array of Edges
 	findEdges(
-		fromDID: [String]
-		toDID: [String]
+		toDID: String
 		type: [String]
 		since: Int
 		tag: [String]
@@ -60,6 +59,6 @@ type Mutation {
 	# Arguments
 	#
 	# edgeJWT: JWT with the following mandatory fields: iss, sub, type, iat. Optional: tag,claim,encPriv,encShar
-	removeEdge(hash: String): String
-	addEdge(edgeJWT: String): Edge
+	removeEdge(hash: String, did: String): String
+	addEdge(edgeJWT: String, did: String): Edge
 }

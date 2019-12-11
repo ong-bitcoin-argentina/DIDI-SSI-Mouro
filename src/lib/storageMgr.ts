@@ -2,10 +2,10 @@ import { AuthDataType } from "./authMgr";
 
 export interface StorageInterface {
 	init(): Promise<void>;
-	addEdge(edge: PersistedEdgeType): Promise<any>;
-	removeEdge(hash: string): Promise<any>;
-	edgeByJwt(jwt: string, authData: AuthDataType | null): Promise<any>;
-	getEdge(hash: string, authData: AuthDataType | null): Promise<any>;
+	addEdge(edge: PersistedEdgeType, did: string): Promise<any>;
+	removeEdge(hash: string, did: string): Promise<any>;
+	edgeByJwt(jwt: string, authData: AuthDataType | null, did: string): Promise<any>;
+	getEdge(hash: string, authData: AuthDataType | null, did: string): Promise<any>;
 	findEdges(params: any, authData: AuthDataType | null): Promise<any>;
 }
 
@@ -40,20 +40,20 @@ export class StorageMgr {
 		}
 	}
 
-	async removeEdge(hash: string) {
-		return this.storage.removeEdge(hash);
+	async removeEdge(hash: string, did: string) {
+		return this.storage.removeEdge(hash, did);
 	}
 
-	async addEdge(edge: PersistedEdgeType) {
-		return this.storage.addEdge(edge);
+	async addEdge(edge: PersistedEdgeType, did: string) {
+		return this.storage.addEdge(edge, did);
 	}
 
-	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
-		return this.storage.edgeByJwt(jwt, authData);
+	async edgeByJwt(jwt: string, authData: AuthDataType | null, did: string) {
+		return this.storage.edgeByJwt(jwt, authData, did);
 	}
 
-	async getEdge(hash: string, authData: AuthDataType | null) {
-		return this.storage.getEdge(hash, authData);
+	async getEdge(hash: string, authData: AuthDataType | null, did: string) {
+		return this.storage.getEdge(hash, authData, did);
 	}
 
 	async findEdges(params: any, authData: AuthDataType | null) {

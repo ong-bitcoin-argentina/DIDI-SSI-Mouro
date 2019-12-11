@@ -90,7 +90,7 @@ describe('QueryResolverMgr', () => {
         test('authMgr.getAuthData fail', (done)=> {
             mockAuthMgr.getAuthData=
                 jest.fn().mockImplementationOnce(()=>{throw Error('fail')})
-            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash')
+            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash', "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then(()=> {
                 fail("shouldn't return"); done()
             })
@@ -105,7 +105,7 @@ describe('QueryResolverMgr', () => {
                 jest.fn().mockResolvedValue({user: did})
             mockStorageMgr.getEdge=
                 jest.fn().mockImplementationOnce(()=>{throw Error('failS')})
-            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash')
+            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash', "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then(()=> {
                 fail("shouldn't return"); done()
             })
@@ -120,7 +120,7 @@ describe('QueryResolverMgr', () => {
                 jest.fn().mockResolvedValue({user: did})
                 mockStorageMgr.getEdge=
                 jest.fn().mockResolvedValue(null)
-            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash')
+            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash', "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp)=> {
                 expect(resp).toBeNull();
                 done()
@@ -134,7 +134,7 @@ describe('QueryResolverMgr', () => {
             mockStorageMgr.getEdge=
                 jest.fn().mockResolvedValue({from: 'other-did', to: did, claim:{}})
 
-            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash')
+            sut.edgeByHash({authorization: 'Bearer '+validToken},'hash', "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8")
             .then((resp: any)=> {
                 expect(resp).not.toBeNull();
                 expect(resp.from).toEqual({did: 'other-did'})

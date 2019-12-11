@@ -43,7 +43,7 @@ describe('SchemaMgr', () => {
         test('Query.edgeByHash',(done)=>{
             mockQueryResolverMgr.edgeByHash=jest.fn().mockImplementationOnce((h,hs)=>{return [h,hs]})
             const edgeByHash = sut._getResolvers()['Query'].edgeByHash;
-            edgeByHash({},{hash: 'hash'},{headers: 'head'},{})
+            edgeByHash({},{hash: 'hash', did: "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8"},{headers: 'head'},{})
             .then((res:any)=>{
                 expect(res).toEqual(['head','hash']);
                 expect(mockQueryResolverMgr.edgeByHash).toBeCalledWith('head','hash')
@@ -65,7 +65,7 @@ describe('SchemaMgr', () => {
         test('Mutation.addEdge',(done)=>{
             mockEdgeResolverMgr.addEdge=jest.fn().mockImplementationOnce((e)=>{return [e]})
             const addEdge = sut._getResolvers()['Mutation'].addEdge;
-            addEdge({},{edgeJWT: 'edge'},{},{})
+            addEdge({},{edgeJWT: 'edge', did: "did:ethr:0x7f2221f88f0cd702a86a5da44e55f5ab4f1fd9a8"},{},{})
             .then((res:any)=>{
                 expect(res).toEqual(['edge']);
                 expect(mockEdgeResolverMgr.addEdge).toBeCalledWith('edge')

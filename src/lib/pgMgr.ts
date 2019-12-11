@@ -44,7 +44,7 @@ module.exports = class PgMgr implements StorageInterface {
 		}
 	}
 
-	async addEdge(edge: PersistedEdgeType) {
+	async addEdge(edge: PersistedEdgeType, did: string) {
 		//Store edge
 		const sql = `
     INSERT INTO edges
@@ -88,17 +88,17 @@ module.exports = class PgMgr implements StorageInterface {
 		}
 	}
 
-	async edgeByJwt(jwt: string, authData: AuthDataType | null) {
+	async edgeByJwt(jwt: string, authData: AuthDataType | null, did: string) {
 		let whereClause = sql.eq("jwt", jwt);
-		this.doGetEdge(whereClause);
+		this.doGetEdge(whereClause, did);
 	}
 
-	async getEdge(hash: string, authData: AuthDataType | null) {
+	async getEdge(hash: string, authData: AuthDataType | null, did: string) {
 		let whereClause = sql.eq("hash", hash);
-		this.doGetEdge(whereClause);
+		this.doGetEdge(whereClause, did);
 	}
 
-	async doGetEdge(whereClause: any) {
+	async doGetEdge(whereClause: any, did: string) {
 		const q = sql
 			.select()
 			.from("edges")
@@ -122,8 +122,7 @@ module.exports = class PgMgr implements StorageInterface {
 		//find edges
 		let where = {};
 
-		if (args.fromDID) where = sql.and(where, sql.in("from", args.fromDID));
-		if (args.toDID) where = sql.and(where, sql.in("to", args.toDID));
+		if (args.toDID) where = sql.and(where, sql.in("to", [args.toDID]));
 		if (args.type) where = sql.and(where, sql.in("type", args.type));
 		if (args.since) where = sql.and(where, sql.gt("time", args.since));
 		if (args.tag) where = sql.and(where, sql.in("tag", args.tag));
@@ -151,7 +150,7 @@ module.exports = class PgMgr implements StorageInterface {
 		}
 	}
 
-	async removeEdge(hash: string) {
+	async removeEdge(hash: string, did: string) {
 		//Remove edge
 		const sql = `DELETE FROM edges WHERE hash= $1`;
 
