@@ -54,9 +54,3 @@ Using Sqlite
 PORT=3000 SQLITE_FILE=DID npm start 
 ```
 
-Using Postgresql
-```
-PORT=3000 PG_URL=postgres://..... npm start 
-```
-
-
