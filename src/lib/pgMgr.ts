@@ -8,13 +8,23 @@ module.exports = class PgMgr implements StorageInterface {
 		console.log("Pg Driver Started.");
 	}
 
-	_getClient() {
-		return new Client({
-			connectionString: process.env.PG_URL
-		});
+	async _getClient(path: string) {
+		if (process.env.PG_URL === "DID") {
+			if (path) {
+				const client = new Client({
+					connectionString: path
+				});
+				await this.initDb(client);
+				return client;
+			}
+		} else {
+			return new Client({
+				connectionString: process.env.PG_URL
+			});
+		}
 	}
 
-	async init() {
+	async initDb(client: any) {
 		const sql = `
     CREATE TABLE IF NOT EXISTS edges
     (
@@ -32,7 +42,6 @@ module.exports = class PgMgr implements StorageInterface {
       CHECK (visibility IN ('TO', 'BOTH', 'ANY'))
     )
     `;
-		const client = this._getClient();
 		try {
 			await client.connect();
 			const res = await client.query(sql);
@@ -43,6 +52,8 @@ module.exports = class PgMgr implements StorageInterface {
 			await client.end();
 		}
 	}
+
+	async init() {}
 
 	async addEdge(edge: PersistedEdgeType, did: string) {
 		//Store edge
@@ -65,7 +76,7 @@ module.exports = class PgMgr implements StorageInterface {
     ON CONFLICT ON CONSTRAINT edges_pkey 
     DO NOTHING;
     `;
-		const client = this._getClient();
+		const client = await this._getClient(did);
 		try {
 			await client.connect();
 			const res = await client.query(sql, [
@@ -106,7 +117,7 @@ module.exports = class PgMgr implements StorageInterface {
 			.toString();
 		console.log(q);
 
-		const client = this._getClient();
+		const client = await this._getClient(did);
 		try {
 			await client.connect();
 			const res = await client.query(q);
@@ -138,7 +149,7 @@ module.exports = class PgMgr implements StorageInterface {
 			.toString();
 		console.log(q);
 
-		const client = this._getClient();
+		const client = await this._getClient(args.toDID);
 		try {
 			await client.connect();
 			const res = await client.query(q);
@@ -154,7 +165,7 @@ module.exports = class PgMgr implements StorageInterface {
 		//Remove edge
 		const sql = `DELETE FROM edges WHERE hash= $1`;
 
-		const client = this._getClient();
+		const client = await this._getClient(did);
 		try {
 			await client.connect();
 			const res = await client.query(sql, [hash]);

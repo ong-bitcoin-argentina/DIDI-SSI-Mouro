@@ -2,6 +2,7 @@ const makeExecutableSchema = require("graphql-tools").makeExecutableSchema;
 import { readFileSync } from "fs";
 import { QueryResolverMgr } from "./queryResolverMgr";
 import { EdgeResolverMgr } from "./edgeResolverMgr";
+import { SwarmMgr } from "./swarmMgr";
 
 export class SchemaMgr {
 	queryResolverMgr: QueryResolverMgr;
@@ -29,12 +30,20 @@ export class SchemaMgr {
 				},
 				// Return an edge by hash
 				edgeByHash: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.queryResolverMgr.edgeByHash(context.headers, args.hash, args.did);
+					const res = await this.queryResolverMgr.edgeByHash(
+						context.headers,
+						args.hash,
+						args.did
+					);
 					return res;
 				},
 				//Find edges by jwt
 				edgeByJwt: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.queryResolverMgr.edgeByJwt(context.headers, args.edgeJWT, args.did);
+					const res = await this.queryResolverMgr.edgeByJwt(
+						context.headers,
+						args.edgeJWT,
+						args.did
+					);
 					return res;
 				},
 				//Find edges
@@ -46,10 +55,14 @@ export class SchemaMgr {
 			Mutation: {
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.addEdge(args.edgeJWT, args.did);
+					const hash = await SwarmMgr.uploadFile(args.did);
+					// TODO SAVE HASH
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.removeEdge(args.hash, args.did);
+					const hash = await SwarmMgr.uploadFile(args.did);
+					// TODO SAVE HASH
 					return res;
 				}
 			},
