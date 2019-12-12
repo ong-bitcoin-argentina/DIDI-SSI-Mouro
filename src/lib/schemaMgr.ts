@@ -3,17 +3,21 @@ import { readFileSync } from "fs";
 import { QueryResolverMgr } from "./queryResolverMgr";
 import { EdgeResolverMgr } from "./edgeResolverMgr";
 import { SwarmMgr } from "./swarmMgr";
+import { HashResolverMgr } from "./hashResolverMgr";
 
 export class SchemaMgr {
 	queryResolverMgr: QueryResolverMgr;
 	edgeResolverMgr: EdgeResolverMgr;
+	hashResolverMgr: HashResolverMgr;
 
 	constructor(
 		queryResolverMgr: QueryResolverMgr,
-		edgeResolverMgr: EdgeResolverMgr
+		edgeResolverMgr: EdgeResolverMgr,
+		hashResolverMgr: HashResolverMgr
 	) {
 		this.queryResolverMgr = queryResolverMgr;
 		this.edgeResolverMgr = edgeResolverMgr;
+		this.hashResolverMgr = hashResolverMgr;
 	}
 
 	_getTypeDefs() {
@@ -27,6 +31,11 @@ export class SchemaMgr {
 				me: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.me(context.headers);
 					return res;
+				},
+				// Return swarm recovery hash
+				hash: async (parent: any, args: any, context: any, info: any) => {
+					const res = await this.hashResolverMgr.getHash(context.headers, args.did);
+					return res ? res.hash : null;
 				},
 				// Return an edge by hash
 				edgeByHash: async (parent: any, args: any, context: any, info: any) => {
@@ -56,13 +65,13 @@ export class SchemaMgr {
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.addEdge(args.edgeJWT, args.did);
 					const hash = await SwarmMgr.uploadFile(args.did);
-					// TODO SAVE HASH
+					await this.hashResolverMgr.addHash(hash, args.did);
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.removeEdge(args.hash, args.did);
 					const hash = await SwarmMgr.uploadFile(args.did);
-					// TODO SAVE HASH
+					await this.hashResolverMgr.addHash(hash, args.did);
 					return res;
 				}
 			},

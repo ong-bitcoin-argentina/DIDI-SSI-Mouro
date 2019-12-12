@@ -1,9 +1,11 @@
 import { PersistedEdgeType, StorageInterface } from "./storageMgr";
 import { AuthDataType, AuthzConditionType } from "./authMgr";
+import { HashStorageInterface } from "./hashStorageMgr";
 const sqlite = require("sqlite");
 const sql = require("sql-bricks-sqlite");
 
-module.exports = class SQLiteMgr implements StorageInterface {
+module.exports = class SQLiteMgr
+	implements StorageInterface, HashStorageInterface {
 	db: any;
 
 	constructor() {
@@ -27,27 +29,47 @@ module.exports = class SQLiteMgr implements StorageInterface {
 	}
 
 	async initDb(db: any) {
-		const sql = `
-    CREATE TABLE IF NOT EXISTS edges
-    (
-      hash CHAR(128) PRIMARY KEY, 
-      "from" VARCHAR(64) NOT NULL, 
-      "to" VARCHAR(64) NOT NULL, 
-      type VARCHAR(128) NULL, 
-      "time" INTEGER NOT NULL, -- from iat
-      visibility VARCHAR(4) NOT NULL,
-      retention INTEGER NULL,
-      tag VARCHAR(128) NULL, 
-      data TEXT NULL, 
-      jwt TEXT NOT NULL
-    )
-    `;
-		try {
-			const res = await db.run(sql);
-			return res;
-		} catch (e) {
-			throw e;
-		}
+		const createEdges = async function(db: any) {
+			const sql = `
+			CREATE TABLE IF NOT EXISTS edges
+			(
+			  hash CHAR(128) PRIMARY KEY, 
+			  "from" VARCHAR(64) NOT NULL, 
+			  "to" VARCHAR(64) NOT NULL, 
+			  type VARCHAR(128) NULL, 
+			  "time" INTEGER NOT NULL, -- from iat
+			  visibility VARCHAR(4) NOT NULL,
+			  retention INTEGER NULL,
+			  tag VARCHAR(128) NULL, 
+			  data TEXT NULL, 
+			  jwt TEXT NOT NULL
+			)
+			`;
+			try {
+				const res = await db.run(sql);
+				return res;
+			} catch (e) {
+				throw e;
+			}
+		};
+		const createHash = async function(db: any) {
+			const sql = `
+			CREATE TABLE IF NOT EXISTS hashes
+			(
+			  hash CHAR(128) PRIMARY KEY, 
+			  Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+			)
+			`;
+			try {
+				const res = await db.run(sql);
+				return res;
+			} catch (e) {
+				throw e;
+			}
+		};
+
+		await createEdges(db);
+		await createHash(db);
 	}
 
 	async init() {
@@ -63,6 +85,37 @@ module.exports = class SQLiteMgr implements StorageInterface {
 			return res;
 		} catch (e) {
 			console.log(e);
+			throw e;
+		}
+	}
+
+	async addHash(hash: String, did: string) {
+		const sql = `
+		INSERT INTO hashes
+		(
+		  hash
+		)
+		VALUES
+		($1)
+		ON CONFLICT(hashes.hash) DO NOTHING;
+		`;
+
+		const db = await this._getDatabase(did);
+		try {
+			const res = await db.run(sql, [hash]);
+			return res;
+		} catch (e) {
+			throw e;
+		}
+	}
+
+	async getHash(did: string, authData: AuthDataType | null) {
+		const sql = `SELECT hash FROM hashes ORDER BY Timestamp DESC LIMIT 1;`;
+		const db = await this._getDatabase(did);
+		try {
+			const res = await db.get(sql);
+			return res;
+		} catch (e) {
 			throw e;
 		}
 	}

@@ -25,13 +25,9 @@ export type PersistedEdgeType = {
 export class StorageMgr {
 	storage!: StorageInterface;
 
-	constructor() {
-		this.storage = new (require("./sqliteMgr"))();
-
-		// if (process.env.SQLITE_FILE) this.storage = new (require("./sqliteMgr"))();
-		// if (process.env.PG_URL) this.storage = new (require("./pgMgr"))();
-		// if(process.env.DYNAMODB_TABLE) this.storage = new (require("./dynamoMgr"))();
-
+	constructor(storage: StorageInterface) {
+		this.storage = storage
+		
 		//Init Storage
 		if (this.storage != null) {
 			(async () => {

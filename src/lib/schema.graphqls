@@ -2,20 +2,18 @@ type Query {
 	# Return identity for the API token issuer
 	me: Identity
 
+	# Return swarm recovery hash
+	hash(did: String): String
+
 	# Return an edge by jwt
 	edgeByJwt(edgeJWT: String, did: String): Edge
 
 	# Return an edge by hash
-	edgeByHash(hash: ID!, did: String): Edge
+	edgeByHash(did: String): Edge
 
 	# Find edges
 	# returns an array of Edges
-	findEdges(
-		toDID: String
-		type: [String]
-		since: Int
-		tag: [String]
-	): [Edge!]!
+	findEdges(toDID: String, type: [String], since: Int, tag: [String]): [Edge!]!
 }
 
 #Identity type.
