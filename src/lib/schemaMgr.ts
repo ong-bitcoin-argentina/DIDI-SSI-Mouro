@@ -65,13 +65,13 @@ export class SchemaMgr {
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.addEdge(args.edgeJWT, args.did);
 					const hash = await SwarmMgr.uploadFile(args.did);
-					await this.hashResolverMgr.addHash(hash, args.did);
+					if (hash) await this.hashResolverMgr.addHash(hash, args.did);
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.removeEdge(args.hash, args.did);
 					const hash = await SwarmMgr.uploadFile(args.did);
-					await this.hashResolverMgr.addHash(hash, args.did);
+					if (hash) await this.hashResolverMgr.addHash(hash, args.did);
 					return res;
 				}
 			},
