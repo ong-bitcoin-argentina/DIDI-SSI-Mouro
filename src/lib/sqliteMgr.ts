@@ -13,7 +13,7 @@ module.exports = class SQLiteMgr
 	}
 
 	async _getDatabase(path: string | undefined) {
-		if (process.env.SQLITE_FILE === "DID") {
+		if (!process.env.SQLITE_FILE) {
 			if (path) {
 				this.db = await sqlite.open("./db/" + path);
 				await this.initDb(this.db);
