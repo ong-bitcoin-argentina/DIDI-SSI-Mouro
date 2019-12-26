@@ -7,6 +7,11 @@ import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
 
+const log = console.log;
+console.log = function(data: any) {
+	log(new Date().toISOString() + ": " + data);
+};
+
 //Instanciate Mgr
 let authMgr = new AuthMgr();
 
