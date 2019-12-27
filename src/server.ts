@@ -9,7 +9,9 @@ import { SchemaMgr } from "./lib/schemaMgr";
 
 const log = console.log;
 console.log = function(data: any) {
-	log(new Date().toISOString() + ": " + data);
+	log(new Date().toISOString() + ": ");
+	log(data);
+	log();
 };
 
 //Instanciate Mgr
