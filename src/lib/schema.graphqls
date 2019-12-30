@@ -9,7 +9,7 @@ type Query {
 	edgeByJwt(edgeJWT: String, did: String): Edge
 
 	# Return an edge by hash
-	edgeByHash(did: String): Edge
+	edgeByHash(did: String, hash: String): Edge
 
 	# Find edges
 	# returns an array of Edges
