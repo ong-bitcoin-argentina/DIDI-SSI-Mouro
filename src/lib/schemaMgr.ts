@@ -38,6 +38,7 @@ export class SchemaMgr {
 					return res ? res.hash : null;
 				},
 				// Return an edge by hash
+				/*
 				edgeByHash: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.edgeByHash(
 						context.headers,
@@ -46,6 +47,7 @@ export class SchemaMgr {
 					);
 					return res;
 				},
+				*/
 				//Find edges by jwt
 				edgeByJwt: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.edgeByJwt(
@@ -63,15 +65,20 @@ export class SchemaMgr {
 			},
 			Mutation: {
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.edgeResolverMgr.addEdge(args.edgeJWT, args.did);
+					const res = await this.edgeResolverMgr.addEdge(context.headers,args.edgeJWT, args.did);
 					const hash = await SwarmMgr.uploadFile("./db/" + args.did);
-					if (hash) await this.hashResolverMgr.addHash(hash, args.did);
+
+					if (hash) {
+						await this.hashResolverMgr.addHash(hash, args.did);
+					}
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.edgeResolverMgr.removeEdge(args.hash, args.did);
+					const res = await this.edgeResolverMgr.removeEdge(context.headers, args.hash, args.did);
 					const hash = await SwarmMgr.uploadFile("./db/" + args.did);
-					if (hash) await this.hashResolverMgr.addHash(hash, args.did);
+					if (hash) {
+						await this.hashResolverMgr.addHash(hash, args.did);
+					}
 					return res;
 				}
 			},
