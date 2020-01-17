@@ -25,7 +25,7 @@ let storageMgr = new StorageMgr(storage);
 let hashStorageMgr = new HashStorageMgr(storage);
 
 let queryResolverMgr = new QueryResolverMgr(authMgr, storageMgr);
-let edgeResolverMgr = new EdgeResolverMgr(storageMgr);
+let edgeResolverMgr = new EdgeResolverMgr(authMgr, storageMgr);
 let hashResolverMgr = new HashResolverMgr(authMgr, hashStorageMgr);
 let schemaMgr = new SchemaMgr(
 	queryResolverMgr,

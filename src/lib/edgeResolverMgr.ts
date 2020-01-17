@@ -1,16 +1,20 @@
 const didJWT = require("did-jwt");
 const blake = require("blakejs");
 
+import { AuthMgr } from "./authMgr";
+import { headersType } from "./commonTypes";
 import { StorageMgr, PersistedEdgeType } from "./storageMgr";
 
 export class EdgeResolverMgr {
+	authMgr: AuthMgr;
 	storageMgr: StorageMgr;
 
-	constructor(storageMgr: StorageMgr) {
+	constructor(authMgr: AuthMgr, storageMgr: StorageMgr) {
+		this.authMgr = authMgr;
 		this.storageMgr = storageMgr;
 	}
 
-	async removeEdge(hash: string, did: string) {
+	async removeEdge(headers: headersType, hash: string, did: string) {
 		console.log("hash:" + hash);
 
 		//Persist edge
@@ -21,7 +25,7 @@ export class EdgeResolverMgr {
 		return hash;
 	}
 
-	async addEdge(edgeJWT: string, did: string) {
+	async addEdge(headers: headersType, edgeJWT: string, did: string) {
 		console.log("edgeJWT:" + edgeJWT);
 
 		//blake2b hash of the original message
