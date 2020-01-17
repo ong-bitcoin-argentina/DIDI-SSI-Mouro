@@ -1,13 +1,16 @@
 const didJWT = require("did-jwt");
 const blake = require("blakejs");
 
+import { AuthMgr } from "./authMgr";
 import { headersType } from "./commonTypes";
 import { StorageMgr, PersistedEdgeType } from "./storageMgr";
 
 export class EdgeResolverMgr {
+	authMgr: AuthMgr;
 	storageMgr: StorageMgr;
 
-	constructor(storageMgr: StorageMgr) {
+	constructor(authMgr: AuthMgr, storageMgr: StorageMgr) {
+		this.authMgr = authMgr;
 		this.storageMgr = storageMgr;
 	}
 
