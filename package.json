@@ -10,7 +10,7 @@
     "config::master": "cp serverless-config/serverless-master.yml ./serverless.yml",
     "start": "node -r ts-node/register ./src/server.ts",
     "test::e2e": "node dev-scripts/create-newman-env http://localhost:3000 > env.json && newman run e2e-tests/mouro.postman_collection.json -e env.json",
-    "local": "PORT=3001 npm start"
+    "local": "node ./runLocal.js"
   },
   "repository": {
     "type": "git",

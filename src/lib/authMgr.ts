@@ -1,5 +1,6 @@
 const didJWT = require("did-jwt");
 import { headersType } from "./commonTypes";
+import { ProvidedRequiredArgumentsOnDirectives } from "graphql/validation/rules/ProvidedRequiredArguments";
 
 export type AuthzConditionType = {
 	iss: string;
@@ -23,7 +24,8 @@ export type VerifiedJWTType = {
 export class AuthMgr {
 	constructor() {
 		require("ethr-did-resolver").default({
-			rpcUrl: "https://mainnet.infura.io/v3/***REMOVED***"
+			rpcUrl: process.env.BLOCKCHAIN_URL,
+			registry: process.env.BLOCK_CHAIN_CONTRACT
 		});
 	}
 
