@@ -9,7 +9,7 @@
     "allowJs": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", "runLocal.js"
   ],
   "exclude": [
     "node_modules"
