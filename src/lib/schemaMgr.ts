@@ -59,25 +59,34 @@ export class SchemaMgr {
 				},
 				//Find edges
 				findEdges: async (parent: any, args: any, context: any, info: any) => {
+					// console.log(context.headers);
 					const res = await this.queryResolverMgr.findEdges(context.headers, args);
 					return res;
 				}
 			},
 			Mutation: {
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.edgeResolverMgr.addEdge(context.headers, args.edgeJWT, args.did);
+					const res = await this.edgeResolverMgr.addEdge(
+						context.headers,
+						args.edgeJWT,
+						args.did
+					);
 					const hash = await SwarmMgr.uploadFile("./db/" + args.did);
 
 					if (hash) {
-						await this.hashResolverMgr.addHash(hash, args.did);
+						await this.hashResolverMgr.addHash(context.headers, hash, args.did);
 					}
 					return res;
 				},
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
-					const res = await this.edgeResolverMgr.removeEdge(context.headers, args.hash, args.did);
+					const res = await this.edgeResolverMgr.removeEdge(
+						context.headers,
+						args.hash,
+						args.did
+					);
 					const hash = await SwarmMgr.uploadFile("./db/" + args.did);
 					if (hash) {
-						await this.hashResolverMgr.addHash(hash, args.did);
+						await this.hashResolverMgr.addHash(context.headers, hash, args.did);
 					}
 					return res;
 				}

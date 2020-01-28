@@ -13,15 +13,30 @@ export class HashResolverMgr {
 
 	async getHash(headers: headersType, did: string) {
 		const authData = await this.authMgr.getAuthData(headers);
-		
+
+		if (
+			!authData ||
+			(authData.user !== "did:ethr:" + process.env.DIDI_SERVER_DID &&
+				authData.user != did)
+		)
+			throw "Unauthorized";
+
 		//get hash
 		const hash = await this.storageMgr.getHash(did, authData);
 		//Return
 		return hash;
 	}
 
-	async addHash(hash: string, did: string) {
+	async addHash(headers: headersType, hash: string, did: string) {
 		console.log("hash:" + hash);
+
+		const authData = await this.authMgr.getAuthData(headers);
+		if (
+			!authData ||
+			(authData.user !== "did:ethr:" + process.env.DIDI_SERVER_DID &&
+				authData.user != did)
+		)
+			throw "Unauthorized";
 
 		//Persist hash
 		await this.storageMgr.addHash(hash, did);
