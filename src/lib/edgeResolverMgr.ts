@@ -16,7 +16,15 @@ export class EdgeResolverMgr {
 
 	async removeEdge(headers: headersType, hash: string, did: string) {
 		console.log("hash:" + hash);
-
+		try {
+			const authData = await this.authMgr.verifyAuthorizationHeader(headers);
+			if (!authData || authData.issuer !== "did:ethr:" + process.env.DIDI_SERVER_DID)
+				throw "Unauthorized";
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+		
 		//Persist edge
 		await this.storageMgr.removeEdge(hash, did);
 		console.log("edge removed");
@@ -27,6 +35,14 @@ export class EdgeResolverMgr {
 
 	async addEdge(headers: headersType, edgeJWT: string, did: string) {
 		console.log("edgeJWT:" + edgeJWT);
+		try {
+			const authData = await this.authMgr.verifyAuthorizationHeader(headers);
+			if (!authData || authData.issuer !== "did:ethr:" + process.env.DIDI_SERVER_DID)
+				throw "Unauthorized";
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
 
 		//blake2b hash of the original message
 		const hash = blake.blake2bHex(edgeJWT);
