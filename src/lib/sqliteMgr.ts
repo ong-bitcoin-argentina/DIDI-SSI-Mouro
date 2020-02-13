@@ -49,6 +49,7 @@ module.exports = class SQLiteMgr
 				const res = await db.run(sql);
 				return res;
 			} catch (e) {
+				console.log(e);
 				throw e;
 			}
 		};
@@ -64,6 +65,7 @@ module.exports = class SQLiteMgr
 				const res = await db.run(sql);
 				return res;
 			} catch (e) {
+				console.log(e);
 				throw e;
 			}
 		};
@@ -105,6 +107,7 @@ module.exports = class SQLiteMgr
 			const res = await db.run(sql, [hash]);
 			return res;
 		} catch (e) {
+			console.log(e);
 			throw e;
 		}
 	}
@@ -116,6 +119,7 @@ module.exports = class SQLiteMgr
 			const res = await db.get(sql);
 			return res;
 		} catch (e) {
+			console.log(e);
 			throw e;
 		}
 	}
@@ -156,6 +160,7 @@ module.exports = class SQLiteMgr
 			]);
 			return res;
 		} catch (e) {
+			console.log(e);
 			throw e;
 		}
 	}
@@ -183,6 +188,7 @@ module.exports = class SQLiteMgr
 			const res = await db.get(q);
 			return res;
 		} catch (e) {
+			console.log(e);
 			throw e;
 		}
 	}
@@ -212,6 +218,7 @@ module.exports = class SQLiteMgr
 			let res = await db.all(q);
 			return res;
 		} catch (e) {
+			console.log(e);
 			throw e;
 		}
 	}
