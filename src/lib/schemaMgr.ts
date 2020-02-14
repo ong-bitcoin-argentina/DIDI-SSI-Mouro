@@ -27,18 +27,24 @@ export class SchemaMgr {
 	_getResolvers() {
 		return {
 			Query: {
-				//Return identity for the API token issuer
+				/**
+				 * Retorna la identidad del usuario dueño del token
+				 */
 				me: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.me(context.headers);
 					return res;
 				},
-				// Return swarm recovery hash
+				/**
+				 *  Retorna el hash de recuperacion para obtener el backup de la base de datos en swarm
+				 *  solo funciona si el did se corresponde con el del dueño del token o el didi-server
+				 */
 				hash: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.hashResolverMgr.getHash(context.headers, args.did);
 					return res ? res.hash : null;
 				},
-				// Return an edge by hash
-				/*
+
+				// Retorna el jwt a partir del hash
+				/* 	
 				edgeByHash: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.edgeByHash(
 						context.headers,
@@ -48,7 +54,11 @@ export class SchemaMgr {
 					return res;
 				},
 				*/
-				//Find edges by jwt
+
+				/**
+				 * Permite validar si el certificado se encuentra en mouro
+				 *  solo funciona si el did se corresponde con el del dueño del token o el didi-server
+				 */
 				edgeByJwt: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.queryResolverMgr.edgeByJwt(
 						context.headers,
@@ -57,7 +67,10 @@ export class SchemaMgr {
 					);
 					return res;
 				},
-				//Find edges
+
+				/**
+				 * 	Retorna los jwts de los certificados que posee el dueño del token
+				 */
 				findEdges: async (parent: any, args: any, context: any, info: any) => {
 					// console.log(context.headers);
 					const res = await this.queryResolverMgr.findEdges(context.headers, args);
@@ -65,6 +78,10 @@ export class SchemaMgr {
 				}
 			},
 			Mutation: {
+				/**
+				 * 	Almacena un nuevo jwt en mouro
+				 *  solo funciona si el did se corresponde con el del dueño del token o el didi-server
+				 */
 				addEdge: async (parent: any, args: any, context: any, info: any) => {
 					const res = await this.edgeResolverMgr.addEdge(
 						context.headers,
@@ -78,7 +95,14 @@ export class SchemaMgr {
 					}
 					return res;
 				},
+
+				/**
+				 * 	Revoca un jwt previamente emitido
+				 *  solo funciona si el did se corresponde con el del dueño del token o el didi-server
+				 */
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
+					return "NO IMPLEMENTADO";
+					/*
 					const res = await this.edgeResolverMgr.removeEdge(
 						context.headers,
 						args.hash,
@@ -90,6 +114,7 @@ export class SchemaMgr {
 						await this.hashResolverMgr.addHash(context.headers, hash, args.did);
 					}
 					return res;
+					*/
 				}
 			},
 			VisibilityEnum: {
