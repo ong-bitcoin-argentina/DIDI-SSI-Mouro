@@ -75,7 +75,6 @@ export class BlockChainMgr {
 		return result;
 	}
 
-	/*
 	static async isRevokedCert(jwts: [string]) {
 		function hex_to_ascii(str1: string) {
 			var hex = str1.toString();
@@ -96,14 +95,9 @@ export class BlockChainMgr {
 			result.push(false);
 		}
 
-		const events = await contract.events.DIDAttributeChanged(
-			{},
-			{ fromBlock: 0, toBlock: "latest" }
-		);
-
+		const events = await contract.getPastEvents("DIDAttributeChanged", { fromBlock: 0, toBlock: "latest" });
 		for (let event of events) {
 			for (let i = 0; i < jwts.length; i++) {
-
 				if (
 					event.returnValues.identity === process.env.MOURO_DID &&
 					hex_to_ascii(event.returnValues.name).substring(1, 8) === "deleted" &&
@@ -115,5 +109,4 @@ export class BlockChainMgr {
 		}
 		return result;
 	}
-	*/
 }
