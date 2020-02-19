@@ -40,7 +40,6 @@ export class QueryResolverMgr {
 		return edge;
 	}
 
-	/*
 	async edgeByHash(headers: headersType, hash: string, did: string) {
 		const authData = await this.authMgr.getAuthData(headers);
 
@@ -53,7 +52,6 @@ export class QueryResolverMgr {
 		edge.claim = JSON.stringify(edge.claim);
 		return edge;
 	}
-	*/
 
 	async findEdges(headers: headersType, args: any) {
 		const authData = await this.authMgr.getAuthData(headers);
