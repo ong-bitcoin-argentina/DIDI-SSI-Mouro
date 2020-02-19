@@ -4,6 +4,7 @@ import { QueryResolverMgr } from "./queryResolverMgr";
 import { EdgeResolverMgr } from "./edgeResolverMgr";
 import { SwarmMgr } from "./swarmMgr";
 import { HashResolverMgr } from "./hashResolverMgr";
+import { BlockChainMgr } from "./blockChainMgr";
 
 export class SchemaMgr {
 	queryResolverMgr: QueryResolverMgr;
@@ -101,19 +102,26 @@ export class SchemaMgr {
 				 *  solo funciona si el did se corresponde con el del dueño del token o el didi-server
 				 */
 				removeEdge: async (parent: any, args: any, context: any, info: any) => {
-					return "NO IMPLEMENTADO";
-					/*
-					const res = await this.edgeResolverMgr.removeEdge(
+					const cert = await this.queryResolverMgr.edgeByHash(
 						context.headers,
 						args.hash,
 						args.did
 					);
-					const hash = await SwarmMgr.uploadFile("./db/" + args.did);
-					if (hash) {
-						await this.hashResolverMgr.addHash(context.headers, hash, args.did);
+
+					if (cert) {
+						await BlockChainMgr.revokeCert(args.did, cert.jwt);
+
+						const res = await this.edgeResolverMgr.removeEdge(
+							context.headers,
+							args.hash,
+							args.did
+						);
+						const hash = await SwarmMgr.uploadFile("./db/" + args.did);
+						if (hash) {
+							await this.hashResolverMgr.addHash(context.headers, hash, args.did);
+						}
+						return res;
 					}
-					return res;
-					*/
 				}
 			},
 			VisibilityEnum: {

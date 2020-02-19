@@ -24,7 +24,7 @@ export class EdgeResolverMgr {
 			console.log(err);
 			throw err;
 		}
-		
+
 		//Persist edge
 		await this.storageMgr.removeEdge(hash, did);
 		console.log("edge removed");

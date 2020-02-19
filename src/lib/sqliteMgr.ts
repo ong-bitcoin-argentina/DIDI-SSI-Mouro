@@ -41,7 +41,8 @@ module.exports = class SQLiteMgr
 			  visibility VARCHAR(4) NOT NULL,
 			  retention INTEGER NULL,
 			  tag VARCHAR(128) NULL, 
-			  data TEXT NULL, 
+			  data TEXT NULL,
+			  revoked BOOLEAN NOT NULL default 0, 
 			  jwt TEXT NOT NULL
 			)
 			`;
@@ -80,7 +81,7 @@ module.exports = class SQLiteMgr
 
 	async removeEdge(hash: string, did: string) {
 		//Remove edge
-		const sql = `DELETE FROM edges WHERE hash= $1`;
+		const sql = `UPDATE edges SET revoked= 1 WHERE hash= $1`;
 		const db = await this._getDatabase(did);
 		try {
 			const res = await db.run(sql, [hash]);
@@ -138,10 +139,11 @@ module.exports = class SQLiteMgr
       retention,
       tag, 
       data, 
-      jwt
+	  jwt,
+	  revoked
     )
     VALUES
-    ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10, 0)
     ON CONFLICT(edges.hash) DO NOTHING;
     `;
 		const db = await this._getDatabase(did);
@@ -175,7 +177,10 @@ module.exports = class SQLiteMgr
 		return await this.doGetEdge(whereClause, authData, did);
 	}
 
-	async doGetEdge(whereClause: any, authData: AuthDataType | null, did: string) {
+	async doGetEdge(whereClause: any, authData: AuthDataType | null, did: string) {		
+		let where = whereClause;
+		where = sql.and(where, sql.eq("revoked", 0));
+
 		const q = sql
 			.select()
 			.from("edges")
@@ -201,6 +206,7 @@ module.exports = class SQLiteMgr
 		if (args.type) where = sql.and(where, sql.in("type", args.type));
 		if (args.since) where = sql.and(where, sql.gt("time", args.since));
 		if (args.tag) where = sql.and(where, sql.in("tag", args.tag));
+		where = sql.and(where, sql.eq("revoked", 0));
 
 		//Add perms to whereClause
 		where = sql.and(where, this._getPermsReadWhere(authData));
