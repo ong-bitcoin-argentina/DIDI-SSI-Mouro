@@ -109,7 +109,7 @@ export class SchemaMgr {
 					);
 
 					if (cert) {
-						await BlockChainMgr.revokeCert(args.did, cert.jwt);
+						// await BlockChainMgr.revokeCert(args.did, cert.jwt);
 
 						const res = await this.edgeResolverMgr.removeEdge(
 							context.headers,
