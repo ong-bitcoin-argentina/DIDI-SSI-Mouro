@@ -75,38 +75,33 @@ export class BlockChainMgr {
 		return result;
 	}
 
-	static async isRevokedCert(jwts: [string]) {
-		function hex_to_ascii(str1: string) {
-			var hex = str1.toString();
-			var str = "";
-			for (var n = 0; n < hex.length; n += 2) {
-				str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
-			}
-			return str;
-		}
+	static async isRevokedCert(jwt: string) {
+		try {
+			const contract = getContract({
+				from: process.env.MOURO_DID,
+				key: process.env.MOURO_PRIVATE_KEY
+			});
+			const events = await contract.getPastEvents("DIDAttributeChanged", {
+				fromBlock: 0,
+				toBlock: "latest"
+			});
 
-		const contract = getContract({
-			from: process.env.MOURO_DID,
-			key: process.env.MOURO_PRIVATE_KEY
-		});
-
-		let result = [];
-		for (let _ of jwts) {
-			result.push(false);
-		}
-
-		const events = await contract.getPastEvents("DIDAttributeChanged", { fromBlock: 0, toBlock: "latest" });
-		for (let event of events) {
-			for (let i = 0; i < jwts.length; i++) {
+			const jwtData = web3.utils.fromAscii(jwt);
+			const deleted = web3.utils.fromAscii("deleted");
+			for (let event of events) {
 				if (
 					event.returnValues.identity === process.env.MOURO_DID &&
-					hex_to_ascii(event.returnValues.name).substring(1, 8) === "deleted" &&
-					hex_to_ascii(event.returnValues.value).slice(1) === jwts[i]
+					event.returnValues.validTo !== 0 &&
+					event.returnValues.name.substring(0, deleted.length) === deleted &&
+					event.returnValues.value.substring(0, jwtData.length) === jwtData
 				) {
-					result[i] = true;
+					return Promise.resolve(true);
 				}
 			}
+			return Promise.resolve(false);
+		} catch (err) {
+			console.log(err);
+			return Promise.resolve(false);
 		}
-		return result;
 	}
 }
