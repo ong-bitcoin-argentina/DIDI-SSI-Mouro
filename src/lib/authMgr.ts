@@ -1,6 +1,8 @@
 const didJWT = require("did-jwt");
 import { headersType } from "./commonTypes";
-import { ProvidedRequiredArgumentsOnDirectives } from "graphql/validation/rules/ProvidedRequiredArguments";
+
+const { Resolver } = require("did-resolver");
+const { getResolver } = require("ethr-did-resolver");
 
 export type AuthzConditionType = {
 	iss: string;
@@ -22,16 +24,22 @@ export type VerifiedJWTType = {
 };
 
 export class AuthMgr {
+	resolver: any;
+
 	constructor() {
-		require("ethr-did-resolver").default({
-			rpcUrl: process.env.BLOCKCHAIN_URL,
-			registry: process.env.BLOCK_CHAIN_CONTRACT
-		});
+		this.resolver = new Resolver(
+			getResolver({
+				rpcUrl: process.env.BLOCK_CHAIN_URL,
+				registry: process.env.BLOCK_CHAIN_CONTRACT
+			})
+		);
 	}
 
 	async verify(authToken: string): Promise<VerifiedJWTType> {
 		if (!authToken) throw new Error("no authToken");
-		const verifiedToken = await didJWT.verifyJWT(authToken);
+		const verifiedToken = await didJWT.verifyJWT(authToken, {
+			resolver: this.resolver
+		});
 		return verifiedToken;
 	}
 
