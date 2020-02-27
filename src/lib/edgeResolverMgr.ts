@@ -51,7 +51,7 @@ export class EdgeResolverMgr {
 		//Verify that the body is a proper JWT
 		//This can take up to 3 secc
 		console.log("verifyJWT...");
-		const verifiedJWT = await didJWT.verifyJWT(edgeJWT);
+		const verifiedJWT = await didJWT.verifyJWT(edgeJWT, { resolver: this.authMgr.resolver });
 		console.log(verifiedJWT);
 
 		const pl = verifiedJWT.payload;
