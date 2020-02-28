@@ -90,7 +90,7 @@ export class BlockChainMgr {
 			const deleted = web3.utils.fromAscii("deleted");
 			for (let event of events) {
 				if (
-					event.returnValues.identity === process.env.MOURO_DID &&
+					event.returnValues.identity.toLowerCase() === (process.env.MOURO_DID + "").toLowerCase() &&
 					event.returnValues.validTo !== 0 &&
 					event.returnValues.name.substring(0, deleted.length) === deleted &&
 					event.returnValues.value.substring(0, jwtData.length) === jwtData
