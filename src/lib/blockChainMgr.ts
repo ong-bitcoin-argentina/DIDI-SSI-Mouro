@@ -77,6 +77,9 @@ export class BlockChainMgr {
 
 	static async isRevokedCert(jwt: string) {
 		try {
+			// TODO: esto genera errores cuando los eventos son muchos.
+			// Debe ser refactorizado.
+
 			const contract = getContract({
 				from: process.env.MOURO_DID,
 				key: process.env.MOURO_PRIVATE_KEY
