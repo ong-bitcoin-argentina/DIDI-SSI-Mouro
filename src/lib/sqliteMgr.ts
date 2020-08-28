@@ -206,11 +206,8 @@ module.exports = class SQLiteMgr
 		if (args.type) where = sql.and(where, sql.in("type", args.type));
 		if (args.since) where = sql.and(where, sql.gt("time", args.since));
 		if (args.tag) where = sql.and(where, sql.in("tag", args.tag));
-		if (args.revoked) {
-			where = sql.and(where, sql.eq("revoked", args.revoked));
-		} else { 
-			where = sql.and(where, sql.eq("revoked", 0));
-		}
+		where = sql.and(where, sql.eq("revoked", args.revoked));
+		
 		//Add perms to whereClause
 		where = sql.and(where, this._getPermsReadWhere(authData));
 
