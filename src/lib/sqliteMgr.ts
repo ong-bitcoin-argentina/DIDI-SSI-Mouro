@@ -206,8 +206,11 @@ module.exports = class SQLiteMgr
 		if (args.type) where = sql.and(where, sql.in("type", args.type));
 		if (args.since) where = sql.and(where, sql.gt("time", args.since));
 		if (args.tag) where = sql.and(where, sql.in("tag", args.tag));
-		where = sql.and(where, sql.eq("revoked", 0));
-
+		if (args.revoked) {
+			where = sql.and(where, sql.eq("revoked", args.revoked));
+		} else { 
+			where = sql.and(where, sql.eq("revoked", 0));
+		}
 		//Add perms to whereClause
 		where = sql.and(where, this._getPermsReadWhere(authData));
 
@@ -218,7 +221,7 @@ module.exports = class SQLiteMgr
 			.orderBy("time")
 			.toString();
 		console.log(q);
-
+		
 		const db = await this._getDatabase(args.toDID);
 		try {
 			let res = await db.all(q);
