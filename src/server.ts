@@ -6,12 +6,9 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
+import { logger } from './logger';
 
-const log = console.log;
-console.log = function(data: any) {
-	process.stdout.write(new Date().toISOString() + ": ");
-	log(data);
-};
+logger.start();
 
 //Instanciate Mgr
 let authMgr = new AuthMgr();
