@@ -1,7 +1,10 @@
 const swc = require("@erebos/swarm-node");
 
+const URL = process.env.SWARM_URL;
+const PORT = process.env.SWARM_PORT;
+
 const client = process.env.SWARM_URL
-	? new swc.SwarmClient({ bzz: { url: process.env.SWARM_URL } })
+	? new swc.SwarmClient({ bzz: { url: `${URL}:${PORT}` } })
 	: undefined;
 
 export class SwarmMgr {

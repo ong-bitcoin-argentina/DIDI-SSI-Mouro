@@ -13,7 +13,7 @@ type Query {
 
 	# Find edges
 	# returns an array of Edges
-	findEdges(toDID: String, type: [String], since: Int, tag: [String]): [Edge!]!
+	findEdges(toDID: String, type: [String], since: Int, tag: [String], revoked: Int = 0): [Edge!]!
 }
 
 #Identity type.
