@@ -8,7 +8,9 @@ import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
 import { logger } from './logger';
 
-logger.start();
+if (process.env.ENABLE_AZURE_LOGGER) {
+	logger.start();
+}
 
 //Instanciate Mgr
 let authMgr = new AuthMgr();
