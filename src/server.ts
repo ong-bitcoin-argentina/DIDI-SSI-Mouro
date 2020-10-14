@@ -1,3 +1,5 @@
+import './logger';
+
 //Load Mgrs
 import { AuthMgr } from "./lib/authMgr";
 import { StorageMgr } from "./lib/storageMgr";
@@ -6,9 +8,6 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
-import { logger } from './logger';
-
-logger.start();
 
 //Instanciate Mgr
 let authMgr = new AuthMgr();
