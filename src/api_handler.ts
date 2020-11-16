@@ -7,9 +7,22 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
+const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
+const constants = require("../constants/constants"); 
+
+//Instanciate Blockchain Manager
+const config = {
+	gasPrice: 10000,
+	providerConfig: constants.BLOCKCHAIN.PROVIDER_CONFIG, // for multiblockchain
+  };
+  
+  const blockchainManager = new BlockchainManager(
+	config,
+	constants.BLOCKCHAIN.GAS_INCREMENT
+  );
 
 //Instanciate Mgr
-let authMgr = new AuthMgr();
+let authMgr = new AuthMgr(blockchainManager);
 
 let storage = new (require("./lib/sqliteMgr"))();
 // if (process.env.SQLITE_FILE) storage =  new (require("./sqliteMgr"))();
@@ -20,7 +33,7 @@ let storageMgr = new StorageMgr(storage);
 let hashStorageMgr = new HashStorageMgr(storage);
 
 let queryResolverMgr = new QueryResolverMgr(authMgr, storageMgr);
-let edgeResolverMgr = new EdgeResolverMgr(authMgr, storageMgr);
+let edgeResolverMgr = new EdgeResolverMgr(blockchainManager, authMgr, storageMgr);
 let hashResolverMgr = new HashResolverMgr(authMgr, hashStorageMgr);
 let schemaMgr = new SchemaMgr(
 	queryResolverMgr,
@@ -31,6 +44,7 @@ let schemaMgr = new SchemaMgr(
 //Load handlers
 import { GraphQLHandler } from "./handlers/graphql";
 import { HashStorageMgr } from "./lib/hashStorageMgr";
+import { BlockChainMgr } from "./lib/blockChainMgr";
 
 //Instanciate handlers
 const graphqlHandler = new GraphQLHandler(schemaMgr).getHandler();
