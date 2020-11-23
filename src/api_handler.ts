@@ -8,18 +8,18 @@ import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
 const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
-const constants = require("../constants/constants"); 
+const constants = require("./constants/constants");
 
 //Instanciate Blockchain Manager
 const config = {
-	gasPrice: 10000,
-	providerConfig: constants.BLOCKCHAIN.PROVIDER_CONFIG, // for multiblockchain
-  };
-  
-  const blockchainManager = new BlockchainManager(
-	config,
-	constants.BLOCKCHAIN.GAS_INCREMENT
-  );
+  gasPrice: 10000,
+  providerConfig: constants.BLOCKCHAIN.PROVIDER_CONFIG, // for multiblockchain
+};
+
+const blockchainManager = new BlockchainManager(
+  config,
+  constants.BLOCKCHAIN.GAS_INCREMENT
+);
 
 //Instanciate Mgr
 let authMgr = new AuthMgr(blockchainManager);
@@ -33,12 +33,16 @@ let storageMgr = new StorageMgr(storage);
 let hashStorageMgr = new HashStorageMgr(storage);
 
 let queryResolverMgr = new QueryResolverMgr(authMgr, storageMgr);
-let edgeResolverMgr = new EdgeResolverMgr(blockchainManager, authMgr, storageMgr);
+let edgeResolverMgr = new EdgeResolverMgr(
+  blockchainManager,
+  authMgr,
+  storageMgr
+);
 let hashResolverMgr = new HashResolverMgr(authMgr, hashStorageMgr);
 let schemaMgr = new SchemaMgr(
-	queryResolverMgr,
-	edgeResolverMgr,
-	hashResolverMgr
+  queryResolverMgr,
+  edgeResolverMgr,
+  hashResolverMgr
 );
 
 //Load handlers

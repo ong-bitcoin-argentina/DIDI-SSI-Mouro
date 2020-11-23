@@ -8,7 +8,7 @@ import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
 import { logger } from "./logger";
 const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
-const constants = require("../constants/constants");
+const constants = require("./constants/constants");
 
 //Instanciate Blockchain Manager
 const config = {
