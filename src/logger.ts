@@ -10,3 +10,7 @@ const azureLogger = new AzureLogger({
   })
 
 loggerManager.addLogger('azure', azureLogger);
+
+exports = { 
+  loggerManager, 
+}
