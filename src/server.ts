@@ -1,3 +1,5 @@
+import './logger';
+
 //Load Mgrs
 import { AuthMgr } from "./lib/authMgr";
 import { StorageMgr } from "./lib/storageMgr";
@@ -6,7 +8,7 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
-import { logger } from "./logger";
+import "./logger";
 const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
 const constants = require("./constants/constants");
 
@@ -23,10 +25,6 @@ const blockchainManager = new BlockchainManager(
 
 //Instanciate Mgr
 let authMgr = new AuthMgr(blockchainManager);
-
-if (process.env.ENABLE_AZURE_LOGGER) {
-  logger.start();
-}
 
 let storage = new (require("./lib/sqliteMgr"))();
 // if (process.env.SQLITE_FILE) storage =  new (require("./sqliteMgr"))();
