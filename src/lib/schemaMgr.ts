@@ -4,7 +4,7 @@ import { QueryResolverMgr } from "./queryResolverMgr";
 import { EdgeResolverMgr } from "./edgeResolverMgr";
 import { SwarmMgr } from "./swarmMgr";
 import { HashResolverMgr } from "./hashResolverMgr";
-import { BlockChainMgr } from "./blockChainMgr";
+
 
 export class SchemaMgr {
 	queryResolverMgr: QueryResolverMgr;
@@ -109,8 +109,6 @@ export class SchemaMgr {
 					);
 
 					if (cert) {
-						// TODO
-						// await BlockChainMgr.revokeCert(args.did, cert.jwt);
 
 						const res = await this.edgeResolverMgr.removeEdge(
 							context.headers,

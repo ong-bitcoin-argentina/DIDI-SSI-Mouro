@@ -48,7 +48,7 @@ let schemaMgr = new SchemaMgr(
 //Load handlers
 import { GraphQLHandler } from "./handlers/graphql";
 import { HashStorageMgr } from "./lib/hashStorageMgr";
-import { BlockChainMgr } from "./lib/blockChainMgr";
+
 
 //Instanciate handlers
 const graphqlHandler = new GraphQLHandler(schemaMgr).getHandler();
