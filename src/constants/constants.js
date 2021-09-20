@@ -8,14 +8,11 @@ const GAS_INCREMENT = process.env.GAS_INCREMENT || "1.1";
 const { BLOCKCHAIN_URL_RSK, BLOCKCHAIN_URL_LAC, BLOCKCHAIN_URL_BFA } = process.env;
 const { INFURA_KEY } = process.env;
 // uPort SC ON
-const { BLOCKCHAIN_CONTRACT_MAIN, BLOCKCHAIN_CONTRACT_LAC, BLOCKCHAIN_CONTRACT_BFA } = process.env;
 
-// Provider
-// MAINNET SHOULD BE THE FIRST NETWORK
-// DID ROUTE EXAMPLE PREFIX:
-// MAINNET ==> did:ethr:
-// RSK ==> did:ethr:rsk:
-// LACCHAIN ==> did:ethr:lacchain:
+const BLOCKCHAIN_CONTRACT_MAIN = '0xdca7ef03e98e0dc2b855be647c39abe984fcf21b';
+const BLOCKCHAIN_CONTRACT_LAC = '0x488C83c4D1dDCF8f3696273eCcf0Ff4Cf54Bf277';
+const BLOCKCHAIN_CONTRACT_BFA = '0x0b2b8e138c38f4ca844dc79d4c004256712de547';
+
 const PROVIDER_CONFIG = {
   networks: [
     {
