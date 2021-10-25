@@ -7,6 +7,11 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
+
+//Load handlers
+import { GraphQLHandler } from "./handlers/graphql";
+import { HashStorageMgr } from "./lib/hashStorageMgr";
+
 const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
 const constants = require("./constants/constants");
 
@@ -44,11 +49,6 @@ let schemaMgr = new SchemaMgr(
   edgeResolverMgr,
   hashResolverMgr
 );
-
-//Load handlers
-import { GraphQLHandler } from "./handlers/graphql";
-import { HashStorageMgr } from "./lib/hashStorageMgr";
-
 
 //Instanciate handlers
 const graphqlHandler = new GraphQLHandler(schemaMgr).getHandler();

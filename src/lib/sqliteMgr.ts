@@ -184,7 +184,7 @@ module.exports = class SQLiteMgr
 		const q = sql
 			.select()
 			.from("edges")
-			.where(whereClause)
+			.where(where)
 			.toString();
 		console.log(q);
 
