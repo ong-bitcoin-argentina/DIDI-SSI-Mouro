@@ -1,3 +1,4 @@
+const constants = require("./constants/constants");
 import './logger';
 
 //Load Mgrs
@@ -8,9 +9,7 @@ import { QueryResolverMgr } from "./lib/queryResolverMgr";
 import { EdgeResolverMgr } from "./lib/edgeResolverMgr";
 import { HashResolverMgr } from "./lib/hashResolverMgr";
 import { SchemaMgr } from "./lib/schemaMgr";
-import "./logger";
 const { BlockchainManager } = require("@proyecto-didi/didi-blockchain-manager");
-const constants = require("./constants/constants");
 
 //Instanciate Blockchain Manager
 const config = {
