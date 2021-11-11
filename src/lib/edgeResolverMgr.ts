@@ -43,7 +43,7 @@ export class EdgeResolverMgr {
   }
 
   async addEdge(headers: headersType, edgeJWT: string, did: string) {
-    console.log("edgeJWT:" + edgeJWT);
+    console.log("edgeJWT: " + edgeJWT);
     try {
       const authData = await this.authMgr.verifyAuthorizationHeader(headers);
       if (
@@ -58,7 +58,7 @@ export class EdgeResolverMgr {
 
     //blake2b hash of the original message
     const hash = blake.blake2bHex(edgeJWT);
-    console.log("hash:" + hash);
+    console.log("hash: " + hash);
 
     //Verify that the body is a proper JWT
     //This can take up to 3 secc
@@ -68,13 +68,17 @@ export class EdgeResolverMgr {
     console.log(verifiedJWT);
 
     const pl = verifiedJWT.payload;
+    
+    const type = pl.vc && pl.vc.type
+     ? pl.vc.type.join(', ') 
+     : '';
 
     const edgeObject: PersistedEdgeType = {
-      hash: hash,
+      hash,
+      type,
       jwt: edgeJWT,
       from: pl.iss,
       to: pl.sub,
-      type: pl.type,
       time: pl.iat,
       visibility: this.visToVisibility(pl.vis),
       retention: pl.ret,
