@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uport-project/mouro.git"
+    "url": "git+https://github.com/ong-bitcoin-argentina/DIDI-SSI-Mouro"
   },
-  "author": "Andres Junge <andres.junge@consensys.net>",
-  "license": "Apache-2.0",
+  "author": "Andres Junge <andres.junge@consensys.net>, Dev Team Proyecto DIDI",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/uport-project/mouro/issues"
+    "url": "https://github.com/ong-bitcoin-argentina/DIDI-SSI-Mouro/issues"
   },
-  "homepage": "https://github.com/uport-project/mouro#readme",
+  "homepage": "https://github.com/ong-bitcoin-argentina/DIDI-SSI-Mouro#readme",
   "devDependencies": {
     "babel-jest": "^26.3.0",
     "commitizen": "^4.2.3",
