@@ -20,7 +20,7 @@
   "homepage": "https://github.com/uport-project/mouro#readme",
   "devDependencies": {
     "babel-jest": "^26.3.0",
-    "commitizen": "^4.2.3",
+    "commitizen": "^4.3.0",
     "cz-jira-smart-commit": "^3.0.0",
     "jest": "^26.4.2"
   },
